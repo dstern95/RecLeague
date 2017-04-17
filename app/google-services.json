@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "492522455338",
+    "firebase_url": "https://recleague-915ed.firebaseio.com",
+    "project_id": "recleague-915ed",
+    "storage_bucket": "recleague-915ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492522455338:android:56266464e4975313",
+        "android_client_info": {
+          "package_name": "com.example.recleague"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492522455338-coeeh4qmlri37i2kqoq0m6n99a9oogg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.recleague",
+            "certificate_hash": "f6923c140ce91a535c6e96bea43914efcc07df67"
+          }
+        },
+        {
+          "client_id": "492522455338-5kab56jvap3fi4qdpjbn897vkqnju4bh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWxDDVPQQqWjpDSqGpTpSO1TeSIat-9rM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492522455338-5kab56jvap3fi4qdpjbn897vkqnju4bh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
