@@ -1,25 +1,25 @@
 package com.example.recleague;
 
-/**
- * Created by davidstern on 4/17/17.
- */
+import java.util.Date;
 
 public class gameProfile {
 
     private String location;
     private String sport;
-    private int playerlimit;
-    private int currentplayers;
+    private int playerLimit;
+    private int currentPlayers;
     private String owner;
+    private Date dateTime;
 
-    public gameProfile(String loc,String spor, int lim, int curlim, String own)
+    public gameProfile(String loc, String sport, int limit, int curLimit, String owner, Date dateTime)
     {
 
         location = loc;
-        sport = spor;
-        playerlimit = lim;
-        currentplayers = curlim;
-        owner = own;
+        this.sport = sport;
+        playerLimit = limit;
+        currentPlayers = curLimit;
+        this.owner = owner;
+        this.dateTime = dateTime;
 
     }
     public String getLocation()
@@ -30,14 +30,16 @@ public class gameProfile {
     {
         return sport;
     }
-    public int getPlayerlimit()
+    public int getPlayerLimit()
     {
-        return playerlimit;
+        return playerLimit;
     }
-    public int getCurrentplayers()
+    public int getCurrentPlayers()
     {
-        return currentplayers;
+        return currentPlayers;
     }
+    public String getOwner() {return owner; }
+    public Date getDateTime() {return dateTime; }
 
 
 
