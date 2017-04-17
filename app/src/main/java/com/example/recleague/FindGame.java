@@ -19,15 +19,14 @@ import java.util.List;
 
 public class FindGame extends AppCompatActivity {
 
-    String[] gameArray = new String[3];
+    String[] gameArray = new String[1];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_game);
-        gameArray[0] = "hi";
-        gameArray[1] = "yo";
-        gameArray[2] = "hey";
+        gameArray[0] = "Loading...";
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
@@ -43,6 +42,7 @@ public class FindGame extends AppCompatActivity {
                 {
                     gameArray[i] = tmp.get(i);
                 }
+                update();
 
                 //gameArray = tmp.toArray(new String[tmp.size()]);
                 //GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
@@ -58,12 +58,16 @@ public class FindGame extends AppCompatActivity {
                 //Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-        String[] gameArray2 = new String[3];
-        gameArray2[0] = "hi";
-        gameArray2[1] = "yo";
-        gameArray2[2] = "hey";
 
 
+
+        update();
+
+
+    }
+
+    public void update()
+    {
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gameArray);
 
         final ListView listView = (ListView) findViewById(R.id.game_view);
