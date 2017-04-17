@@ -5,12 +5,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.recleague.Login">
+    tools:context="com.example.recleague.MainActivity">
 
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/tv_intro"
+
+        />
+    <Button
+        android:id="@+id/sbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_intro"
+        android:text="post games"
+        android:onClick="post"
+
+        />
+    <Button
+        android:layout_toRightOf="@+id/sbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="find games"
+        android:onClick="find"
+        android:id="@+id/gbutton"
+        android:layout_below="@+id/tv_intro"
 
         />
 </RelativeLayout>
