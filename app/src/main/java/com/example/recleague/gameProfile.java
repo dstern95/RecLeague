@@ -11,15 +11,20 @@ public class gameProfile {
     private String owner;
     private Date dateTime;
 
-    public gameProfile(String loc, String sport, int limit, int curLimit, String owner, Date dateTime)
+    public gameProfile(String loc, String sport, int limit, String owner, Date dateTime)
     {
 
         location = loc;
         this.sport = sport;
         playerLimit = limit;
-        currentPlayers = curLimit;
+        currentPlayers = 1;
         this.owner = owner;
         this.dateTime = dateTime;
+
+    }
+    public void setCurrentPlayers(int tmp)
+    {
+        currentPlayers = tmp;
 
     }
     public String getLocation()
@@ -38,8 +43,12 @@ public class gameProfile {
     {
         return currentPlayers;
     }
-    public String getOwner() {return owner; }
-    public Date getDateTime() {return dateTime; }
+    public String getOwner() {
+        return owner;
+    }
+    public Date getDateTime() {
+        return dateTime;
+    }
 
 
 

@@ -7,10 +7,27 @@
     android:layout_height="match_parent"
     tools:context="com.example.recleague.PostGame">
 
-    <TextView
+
+
+    <Button
+        android:id="@+id/ptime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_intro"
-
+        android:text="pick time"
+        android:onClick="showTimePickerDialog" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pick date"
+        android:onClick="showDatePickerDialog"
+        android:layout_toRightOf="@+id/ptime"
         />
+
+    <Spinner
+        android:id="@+id/sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+    </Spinner>
 </RelativeLayout>
