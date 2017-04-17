@@ -154,6 +154,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     }
                 });
 
+        Intent intent1 = new Intent(this, MainActivity.class);
+        startActivity(intent1);
+
     }
 
 
@@ -192,12 +195,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             signIn(mEmailField.getText().toString().toLowerCase(), mPasswordField.getText().toString());
         }
 
-        if (done)
+        /*if (done)
         {
             Intent intent1 = new Intent(this, MainActivity.class);
             startActivity(intent1);
 
-        }
+        }*/
     }
 
 }
