@@ -23,11 +23,70 @@
         android:layout_toRightOf="@+id/ptime"
         />
 
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/month_text"
+        android:layout_below="@+id/ptime"
+        android:hint="month"
+        android:inputType="number"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/day_text"
+        android:layout_below="@+id/month_text"
+        android:hint="day"
+        android:inputType="number"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hour_text"
+        android:layout_below="@+id/day_text"
+        android:hint="hour"
+        android:inputType="number"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/min_text"
+        android:layout_below="@+id/hour_text"
+        android:hint="minute"
+        android:inputType="number"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lim_text"
+        android:layout_below="@+id/min_text"
+        android:hint="player limit"
+        android:inputType="number"
+        />
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_text"
+        android:layout_below="@+id/lim_text"
+        android:hint="location"
+        />
     <Spinner
         android:id="@+id/sports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_below="@+id/location_text">
 
-    </Spinner>
+</Spinner>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:layout_below="@+id/sports"
+        android:text="post"
+        android:onClick="post"
+        />
 </RelativeLayout>

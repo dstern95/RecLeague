@@ -152,8 +152,6 @@ public class PostGame extends AppCompatActivity {
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
-        public int hr;
-        public int min;
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -169,14 +167,10 @@ public class PostGame extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user
-            hr = hourOfDay;
-            min = minute;
+
 
         }
-        public int getHr()
-        {
-            return hr;
-        }
+
 
 
     }
