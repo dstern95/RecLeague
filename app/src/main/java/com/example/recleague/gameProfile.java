@@ -4,13 +4,17 @@ import java.util.Date;
 
 public class gameProfile {
 
-    private String location;
-    private String sport;
-    private int playerLimit;
-    private int currentPlayers;
-    private String owner;
-    private Date dateTime;
+    public String location;
+    public String sport;
+    public int playerLimit;
+    public int currentPlayers;
+    public String owner;
+    public Date dateTime;
 
+    public gameProfile()
+    {
+        //default
+    }
     public gameProfile(String loc, String sport, int limit, String owner, Date dateTime)
     {
 

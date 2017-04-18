@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,10 +54,13 @@ public class PostGame extends AppCompatActivity {
     public int dy;
     public int mth;
 
+    gameHolder games;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_game);
+        games = new gameHolder();
 
         sports[0] = "soccer";
         sports[1] = "basketball";
@@ -75,7 +79,7 @@ public class PostGame extends AppCompatActivity {
 
         myRef.setValue(games);
 
-
+        */
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -86,7 +90,8 @@ public class PostGame extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {};
-                ArrayList<String> tmp = dataSnapshot.getValue(t);
+                ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
+                games = new gameHolder(tmp);
 
             }
 
@@ -95,9 +100,9 @@ public class PostGame extends AppCompatActivity {
                 // Failed to read value
                 //Log.w(TAG, "Failed to read value.", error.toException());
             }
-*/
-
+        });
     }
+
     @Override
     protected void onResume(){
         super.onResume();
@@ -115,16 +120,34 @@ public class PostGame extends AppCompatActivity {
     public void create(View v)
     {
 
+        EditText month = (EditText)findViewById(R.id.month_text);
+        //int month = Integer.valueOf(etmonth.getText().toString());
+        EditText day = (EditText)findViewById(R.id.day_text);
+        EditText hour = (EditText)findViewById(R.id.hour_text);
+        EditText min = (EditText)findViewById(R.id.min_text);
+        dateTime = new Date(2017,Integer.valueOf(month.getText().toString()),Integer.valueOf(day.getText().toString()),
+                Integer.valueOf(hour.getText().toString()), Integer.valueOf(min.getText().toString()));
+
+        EditText loc = (EditText)findViewById(R.id.location_text);
+        location = loc.getText().toString();
+
+        EditText lim = (EditText)findViewById(R.id.lim_text);
+        playerLimit = Integer.valueOf(lim.getText().toString());
+
         gameProfile tmp = new gameProfile(location,sport,playerLimit,owner,dateTime);
 
-        ArrayList<gameProfile> games = new ArrayList<gameProfile>();
+        //ArrayList<gameProfile> games = new ArrayList<gameProfile>();
+        games.insadd(tmp);
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
 
+
         myRef.setValue(games);
 
+        Toast.makeText(PostGame.this, "Game posted",
+                Toast.LENGTH_SHORT).show();
     }
 
     class sportsListener implements AdapterView.OnItemSelectedListener {
@@ -132,7 +155,7 @@ public class PostGame extends AppCompatActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-            String sport = sports[pos];
+            sport = sports[pos];
 
         }
 

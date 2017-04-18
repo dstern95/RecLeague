@@ -1,52 +1,49 @@
 package com.example.recleague;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by davidstern on 4/17/17.
  */
 
-public class gameHolder {
+public class gameHolder extends ArrayList<gameProfile>{
 
-    gameProfile[] holder;
 
-    int size;
     public gameHolder(){
-        size = 0;
-        holder = new gameProfile[1];
-    }
 
-    public gameProfile[] getHolder()
-    {
-        return holder;
+        super();
 
     }
-
-    public void add(gameProfile newprof)
+    public gameHolder(ArrayList<gameProfile> tmp)
     {
-        boolean added = false;
-        gameProfile[] tmpholder= new gameProfile[size+1];
-        int i = 0;
-        int cur = 0;
-        while (i<size)
+        super();
+
+        for(int i=0; i<tmp.size();i++)
         {
-            if (added == false)
-            {
-                if (holder[i].getDateTime().after(newprof.getDateTime()))
-                {
-                    tmpholder[cur] = newprof;
-                    cur +=1;
-                    added = true;
-                }
+            this.add(tmp.get(i));
+
+        }
+    }
+
+
+    public boolean insadd(gameProfile newprof)
+    {
+
+            int i = 0;
+            while (i < this.size()) {
+                    if (this.get(i).getDateTime().after(newprof.getDateTime())) {
+                        this.add(i,newprof);
+                        return true;
+                    }
+                    i+=1;
+
+
 
             }
-            tmpholder[cur] = holder[i];
-            cur += 1;
-            i += 1;
-        }
-        size +=1;
-        holder = tmpholder;
 
+            this.add(newprof);
+        return true;
 
     }
 

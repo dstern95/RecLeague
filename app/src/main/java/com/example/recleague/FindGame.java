@@ -15,11 +15,13 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FindGame extends AppCompatActivity {
 
     String[] gameArray = new String[1];
+    ArrayList<gameProfile> masterlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,24 @@ public class FindGame extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //GenericTypeIndicator<Date> t = new GenericTypeIndicator<Date>() {};
+                //Date tmp = dataSnapshot.getValue(t);
+                //gameHolder tmp = dataSnapshot.getValue(gameHolder.class);
+
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
-                ArrayList<String> tmp = dataSnapshot.getValue(t);
+                GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {};
+                ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
+
                 gameArray = new String[tmp.size()];
+                masterlist = tmp;
                 for (int i =0; i <tmp.size();i++)
                 {
-                    gameArray[i] = tmp.get(i);
+                    String name = tmp.get(i).getLocation();
+                    name +="    ";
+                    name +=tmp.get(i).getDateTime().toString();
+                    gameArray[i] = name;
                 }
                 update();
 

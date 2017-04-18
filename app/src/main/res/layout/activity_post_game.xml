@@ -87,6 +87,6 @@
         android:textSize="30dp"
         android:layout_below="@+id/sports"
         android:text="post"
-        android:onClick="post"
+        android:onClick="create"
         />
 </RelativeLayout>
