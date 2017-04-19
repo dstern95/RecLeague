@@ -81,10 +81,10 @@ public class gameProfile {
 
         if (id.equals(tmp))
         {
-            return false;
+            return true;
 
         }
-        return true;
+        return false;
     }
     public String getId(){return id;}
     public ArrayList<String> getGoing(){

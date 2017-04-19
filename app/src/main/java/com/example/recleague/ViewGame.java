@@ -87,6 +87,8 @@ public class ViewGame extends AppCompatActivity {
 
     public void submit()
     {
+
+        games.replace(selgame);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
 
@@ -112,6 +114,8 @@ public class ViewGame extends AppCompatActivity {
             selgame = games.findbyId(gameid);
             if (selgame != null)
             {
+                Log.d(TAG, "selgame in update "+ selgame.getId());
+
 
                 TextView tv_date = (TextView)findViewById(R.id.date_text);
                 TextView tv_sport = (TextView)findViewById(R.id.sport_text);

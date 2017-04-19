@@ -39,6 +39,8 @@ public class gameHolder extends ArrayList<gameProfile>{
 
             if (this.get(i).isId(id))
             {
+                Log.d(TAG, "foud "+this.get(i).getId()+" vs "+id);
+
 
                 return this.get(i);
             }
@@ -46,6 +48,24 @@ public class gameHolder extends ArrayList<gameProfile>{
 
 
         return null;
+    }
+
+    public boolean replace(gameProfile upprof)
+    {
+        int i = 0;
+        while (i < this.size()) {
+            if (this.get(i).getId().equals(upprof.getId())) {
+                this.add(i,upprof);
+                this.remove(i+1);
+                return true;
+            }
+            i+=1;
+
+
+
+        }
+        return false;
+
     }
 
 

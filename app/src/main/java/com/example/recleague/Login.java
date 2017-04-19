@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        findViewById(R.id.create_button).setOnClickListener(this);
+        findViewById(R.id.createbutton).setOnClickListener(this);
         findViewById(R.id.logbutton).setOnClickListener(this);
 
         mEmailField = (EditText) findViewById(R.id.usernamedata);
@@ -189,7 +189,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
 
         int i = v.getId();
-        if (i == R.id.create_button) {
+        if (i == R.id.createbutton) {
             username = mEmailField.getText().toString().toLowerCase();
             createAccount(mEmailField.getText().toString().toLowerCase(), mPasswordField.getText().toString());
         } else {
