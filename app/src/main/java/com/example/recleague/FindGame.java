@@ -137,6 +137,7 @@ public class FindGame extends AppCompatActivity {
                 gameArray2[i] = name;
             }
         }
+        final ArrayList<gameProfile> ml2 = ml;
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gameArray2);
 
         final ListView listView = (ListView) findViewById(R.id.game_view);
@@ -148,7 +149,7 @@ public class FindGame extends AppCompatActivity {
                 //String filename = listView.getItemAtPosition(position).toString();
 
                 Intent i = new Intent(FindGame.this, ViewGame.class);
-                i.putExtra("GameName", masterlist.get(position).getId());
+                i.putExtra("GameName", ml2.get(position).getId());
 
 
                 startActivity(i);
