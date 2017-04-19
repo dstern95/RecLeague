@@ -9,8 +9,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
     String user;
+    userProfile curUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +36,52 @@ public class MainActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         user = sharedpreferences.getString("user",null);
-        TextView tv = (TextView)findViewById(R.id.tv_intro);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        final FirebaseUser user2 = mAuth.getCurrentUser();
+
+        user2.getUid();
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(user2.getUid());
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                GenericTypeIndicator<userProfile> t = new GenericTypeIndicator<userProfile>() {};
+                userProfile tmp = dataSnapshot.getValue(t);
+
+                if(tmp == null)
+                {
+                    newUser(user2);
+                }
+                TextView tv = (TextView)findViewById(R.id.tv_intro);
+
+                String intrmessage = "hello ";
+                intrmessage += curUser.getNickname();
+                intrmessage += " welcome to RecLeague";
+                tv.setText(intrmessage);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+
+/*
         String intrmessage = "hello ";
-        intrmessage += user;
+        intrmessage += curUser.getUsername();
         intrmessage += " welcome to RecLeague";
         tv.setText(intrmessage);
-
+*/
         gameHolder games = new gameHolder();
         Date dt = new Date(2017,3,3,3,3);
         Date dt2 = new Date(2016,3,3,2,1);
@@ -47,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
         a.add(gm);
         a.add(gm2);
 
+
+
         //FirebaseDatabase database = FirebaseDatabase.getInstance();
         //DatabaseReference myRef = database.getReference("game");
         gameHolder games2 = new gameHolder(a);
@@ -54,6 +104,18 @@ public class MainActivity extends AppCompatActivity {
 
         //myRef.setValue(games);
         //user = user.replace(".", "@");
+    }
+
+    public void newUser(FirebaseUser user2)
+    {
+        curUser = new userProfile(user2.getEmail(),user2.getUid());
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(user2.getUid());
+
+
+        myRef.setValue(curUser);
+
     }
     public void post(View v)
     {
