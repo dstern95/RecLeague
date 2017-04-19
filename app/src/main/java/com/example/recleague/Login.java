@@ -3,6 +3,7 @@ package com.example.recleague;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,7 +40,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        findViewById(R.id.create_button).setOnClickListener(this);
+        findViewById(R.id.createbutton).setOnClickListener(this);
         findViewById(R.id.logbutton).setOnClickListener(this);
 
         mEmailField = (EditText) findViewById(R.id.usernamedata);
@@ -154,8 +156,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     }
                 });
 
-        Intent intent1 = new Intent(this, MainActivity.class);
-        startActivity(intent1);
+        //Intent intent1 = new Intent(this, MainActivity.class);
+        //startActivity(intent1);
 
     }
 
@@ -187,7 +189,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
 
         int i = v.getId();
-        if (i == R.id.create_button) {
+        if (i == R.id.createbutton) {
             username = mEmailField.getText().toString().toLowerCase();
             createAccount(mEmailField.getText().toString().toLowerCase(), mPasswordField.getText().toString());
         } else {
@@ -195,12 +197,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             signIn(mEmailField.getText().toString().toLowerCase(), mPasswordField.getText().toString());
         }
 
-        /*if (done)
+
+        if (done)
         {
             Intent intent1 = new Intent(this, MainActivity.class);
             startActivity(intent1);
 
-        }*/
+        }
+
     }
 
 }

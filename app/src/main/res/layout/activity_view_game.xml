@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.recleague.ViewGame">
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:id="@+id/date_text"
+        android:text="date"
+        android:visibility="invisible"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sport_text"
+        android:textSize="30dp"
+        android:layout_below="@+id/date_text"
+        android:hint="sport"
+        android:visibility="invisible"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_text"
+        android:layout_below="@+id/sport_text"
+        android:hint="location"
+        android:textSize="30dp"
+        android:visibility="invisible"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/owner_text"
+        android:layout_below="@+id/location_text"
+        android:hint="owner"
+        android:textSize="30dp"
+        android:visibility="invisible"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lim_text"
+        android:layout_below="@+id/owner_text"
+        android:hint="player limit"
+        android:textSize="30dp"
+        android:visibility="invisible"
+
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/load_text"
+        android:text="Loading..."
+        android:textSize="30dp"
+        android:layout_centerInParent="true"
+
+        />
+
+
+    <Button
+        android:id="@+id/jorl_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:layout_below="@+id/lim_text"
+        android:onClick="joinorleave"
+        android:text="join"
+        android:visibility="invisible"
+
+        />
+</RelativeLayout>

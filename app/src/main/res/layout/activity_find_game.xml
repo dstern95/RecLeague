@@ -7,7 +7,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.recleague.FindGame">
 
+
+    <Spinner
+        android:id="@+id/sports"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+>
+    </Spinner>
+
 <ListView
+    android:layout_below="@+id/sports"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/game_view"
