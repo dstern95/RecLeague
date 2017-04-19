@@ -7,34 +7,66 @@
     android:layout_height="match_parent"
     tools:context="com.example.recleague.Login">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="email"
-        android:textSize="30dp"
-        android:id="@+id/usernamedata"
-        />
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="password"
-        android:textSize="30dp"
-        android:layout_below="@+id/usernamedata"
-        android:id="@+id/passdata"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="login"
-        android:layout_below="@+id/passdata"
-        android:id="@+id/logbutton"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="create account"
-        android:layout_below="@+id/logbutton"
-        android:id="@+id/create_button"
-        />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="email"
+            android:textSize="30sp"
+            android:id="@+id/usernamedata" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="password"
+            android:textSize="30sp"
+            android:layout_below="@+id/usernamedata"
+            android:id="@+id/passdata" />
+
+        <Button
+            android:id="@+id/logbutton"
+
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textSize="23sp"
+
+            android:layout_margin="10dp"
+
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:layout_below="@+id/passdata"
+            android:background="@drawable/button_shape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5" />
+
+        <Button
+            android:id="@+id/createbutton"
+
+            android:text="Create Account"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+
+            android:layout_margin="10dp"
+
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:layout_below="@+id/passdata"
+            android:layout_toEndOf="@+id/logbutton"
+            android:layout_toRightOf="@+id/logbutton"
+            android:background="@drawable/button_shape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5" />
+
+    </RelativeLayout>
+
 </RelativeLayout>
+
