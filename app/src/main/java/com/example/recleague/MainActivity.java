@@ -35,12 +35,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
+
         user = sharedpreferences.getString("user",null);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         final FirebaseUser user2 = mAuth.getCurrentUser();
 
-        user2.getUid();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("user", user2.getEmail());
+        editor.apply();
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -57,12 +60,19 @@ public class MainActivity extends AppCompatActivity {
                 {
                     newUser(user2);
                 }
-                TextView tv = (TextView)findViewById(R.id.tv_intro);
+                else
+                {
+                    curUser = tmp;
+                }
+
+
+                TextView tv = (TextView) findViewById(R.id.tv_intro);
 
                 String intrmessage = "hello ";
                 intrmessage += curUser.getNickname();
                 intrmessage += " welcome to RecLeague";
                 tv.setText(intrmessage);
+
 
 
             }
