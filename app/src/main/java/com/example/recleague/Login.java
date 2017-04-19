@@ -20,7 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity {
 
     private final String TAG = "Login";
     public static final String MyPREFERENCES = "MyPrefs" ;
@@ -40,8 +40,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        findViewById(R.id.createbutton).setOnClickListener(this);
-        findViewById(R.id.logbutton).setOnClickListener(this);
+        findViewById(R.id.createbutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = mEmailField.getText().toString().toLowerCase();
+                createAccount(mEmailField.getText().toString().toLowerCase(), mPasswordField.getText().toString());
+            }
+        });
+
+        findViewById(R.id.logbutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = mEmailField.getText().toString().toLowerCase();
+                signIn(mEmailField.getText().toString().toLowerCase(), mPasswordField.getText().toString());
+            }
+        });
 
         mEmailField = (EditText) findViewById(R.id.usernamedata);
         mPasswordField = (EditText) findViewById(R.id.passdata);
@@ -98,6 +111,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             editor.putString("user", username);
                             editor.commit();
                             done = true;
+                            newActivity();
 
                         }
 
@@ -136,6 +150,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             editor.putString("user", username);
                             editor.commit();
                             done = true;
+                            newActivity();
 
                         }
 
@@ -184,27 +199,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         return valid;
     }
 
-
-    @Override
-    public void onClick(View v) {
-
-        int i = v.getId();
-        if (i == R.id.createbutton) {
-            username = mEmailField.getText().toString().toLowerCase();
-            createAccount(mEmailField.getText().toString().toLowerCase(), mPasswordField.getText().toString());
-        } else {
-            username = mEmailField.getText().toString().toLowerCase();
-            signIn(mEmailField.getText().toString().toLowerCase(), mPasswordField.getText().toString());
-        }
-
-
+    public void newActivity()
+    {
         if (done)
         {
             Intent intent1 = new Intent(this, MainActivity.class);
             startActivity(intent1);
 
         }
-
     }
-
 }
