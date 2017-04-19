@@ -31,6 +31,20 @@ public class userProfile {
 
     }
 
+    public boolean hasRated(String rater)
+    {
+        return !raters.contains(rater);
+    }
+
+    public void addRating(String rater,double urating)
+    {
+        double totrate = rating*raters.size();
+        totrate += urating;
+        raters.add(rater);
+        rating = totrate/raters.size();
+
+
+    }
     public void removeGame(String game)
     {
         joinedgames.remove(game);
