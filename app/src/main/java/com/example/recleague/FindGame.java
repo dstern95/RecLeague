@@ -26,7 +26,7 @@ public class FindGame extends AppCompatActivity {
 
     String[] gameArray = new String[1];
     ArrayList<gameProfile> masterlist;
-    private String[] sports = new String[3];
+    private String[] sports = new String[4];
     private String sport;
 
     @Override
@@ -34,11 +34,12 @@ public class FindGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_game);
         gameArray[0] = "Loading...";
-        sports[0] = "soccer";
-        sports[1] = "basketball";
-        sports[2] = "water-polo";
+        sports[0] = "all";
+        sports[1] = "soccer";
+        sports[2] = "basketball";
+        sports[3] = "water-polo";
 
-
+        sport = "all";
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
@@ -103,6 +104,7 @@ public class FindGame extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
             sport = sports[pos];
+            update();
 
         }
 
@@ -114,7 +116,28 @@ public class FindGame extends AppCompatActivity {
 
     public void update()
     {
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gameArray);
+        ArrayList<gameProfile> ml = masterlist;
+        String[] gameArray2 = gameArray;
+        if(!sport.equals("all"))
+        {
+            ml = new ArrayList<gameProfile>();
+            for (int i =0; i<masterlist.size();i++)
+            {
+                if (masterlist.get(i).getSport().equals(sport))
+                {
+                    ml.add(masterlist.get(i));
+                }
+            }
+            gameArray2 = new String[ml.size()];
+            for (int i = 0;i<ml.size();i++)
+            {
+                String name = ml.get(i).getLocation();
+                name +="    ";
+                name +=ml.get(i).getDateTime().toString();
+                gameArray2[i] = name;
+            }
+        }
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gameArray2);
 
         final ListView listView = (ListView) findViewById(R.id.game_view);
         listView.setAdapter(itemsAdapter);
