@@ -80,6 +80,7 @@ public class ViewGame extends AppCompatActivity {
         else if (decision == 2)
         {
             selgame.removePlayer(user);
+
             submit();
         }
 
@@ -89,6 +90,10 @@ public class ViewGame extends AppCompatActivity {
     {
 
         games.replace(selgame);
+        if (selgame.getCurrentPlayers() ==0)
+        {
+            games.remove(selgame);
+        }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
 
@@ -97,6 +102,7 @@ public class ViewGame extends AppCompatActivity {
 
         Toast.makeText(ViewGame.this, "Game updated",
                 Toast.LENGTH_SHORT).show();
+        finish();
 
 
     }

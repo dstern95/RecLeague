@@ -72,7 +72,7 @@ public class PostGame extends AppCompatActivity {
         sports[0] = "soccer";
         sports[1] = "basketball";
         sports[2] = "water-polo";
-        user = user.replace(".", "~");
+        //user = user.replace(".", "~");
 
 
 
@@ -100,8 +100,13 @@ public class PostGame extends AppCompatActivity {
                 // whenever data at this location is updated.
                 GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {};
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
-                games = new gameHolder(tmp);
-
+                if (tmp!=null) {
+                    games = new gameHolder(tmp);
+                }
+                else
+                {
+                    games = new gameHolder();
+                }
             }
 
             @Override
