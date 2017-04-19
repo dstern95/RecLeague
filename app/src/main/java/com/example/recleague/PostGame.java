@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +56,9 @@ public class PostGame extends AppCompatActivity {
     public int mth;
 
     gameHolder games;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences sharedpreferences;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +66,14 @@ public class PostGame extends AppCompatActivity {
         setContentView(R.layout.activity_post_game);
         games = new gameHolder();
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        user = sharedpreferences.getString("user",null);
         sports[0] = "soccer";
         sports[1] = "basketball";
         sports[2] = "water-polo";
+        user = user.replace(".", "~");
+
 
 
         //GenericTypeIndicator<List<String>> games = new GenericTypeIndicator<List<String>>() {};
@@ -134,7 +143,7 @@ public class PostGame extends AppCompatActivity {
         EditText lim = (EditText)findViewById(R.id.lim_text);
         playerLimit = Integer.valueOf(lim.getText().toString());
 
-        gameProfile tmp = new gameProfile(location,sport,playerLimit,owner,dateTime);
+        gameProfile tmp = new gameProfile(location,sport,playerLimit,user,dateTime);
 
         //ArrayList<gameProfile> games = new ArrayList<gameProfile>();
         games.insadd(tmp);

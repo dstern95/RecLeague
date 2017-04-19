@@ -1,5 +1,7 @@
 package com.example.recleague;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
 
 public class gameHolder extends ArrayList<gameProfile>{
 
+    private final String TAG = "gameHolder";
 
     public gameHolder(){
 
@@ -24,6 +27,25 @@ public class gameHolder extends ArrayList<gameProfile>{
             this.add(tmp.get(i));
 
         }
+    }
+
+
+    public gameProfile findbyId(String id)
+    {
+        for (int i=0; i<this.size();i++)
+        {
+
+            Log.d(TAG, "found a match  ");
+
+            if (this.get(i).isId(id))
+            {
+
+                return this.get(i);
+            }
+        }
+
+
+        return null;
     }
 
 

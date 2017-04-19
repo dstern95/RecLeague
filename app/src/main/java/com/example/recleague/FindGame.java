@@ -1,8 +1,11 @@
 package com.example.recleague;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -70,11 +73,7 @@ public class FindGame extends AppCompatActivity {
                 //Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-
         update();
-
 
     }
 
@@ -84,6 +83,21 @@ public class FindGame extends AppCompatActivity {
 
         final ListView listView = (ListView) findViewById(R.id.game_view);
         listView.setAdapter(itemsAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //String filename = listView.getItemAtPosition(position).toString();
+
+                Intent i = new Intent(FindGame.this, ViewGame.class);
+                i.putExtra("GameName", masterlist.get(position).getId());
+
+
+                startActivity(i);
+
+
+            }
+        });
     }
 
 }

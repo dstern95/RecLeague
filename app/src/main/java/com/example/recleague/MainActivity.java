@@ -47,16 +47,17 @@ public class MainActivity extends AppCompatActivity {
         a.add(gm);
         a.add(gm2);
 
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference myRef = database.getReference("game");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("game");
         gameHolder games2 = new gameHolder(a);
 
 
-        //myRef.setValue(games);
+        myRef.setValue(games);
         //user = user.replace(".", "@");
     }
     public void post(View v)
     {
+
         Intent intent1 = new Intent(this, PostGame.class);
         startActivity(intent1);
     }
