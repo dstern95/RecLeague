@@ -38,6 +38,10 @@ public class userProfile {
 
     public void addRating(String rater,double urating)
     {
+        if (raters == null)
+        {
+            raters = new ArrayList<>();
+        }
         double totrate = rating*raters.size();
         totrate += urating;
         raters.add(rater);
@@ -45,16 +49,33 @@ public class userProfile {
 
 
     }
+
     public void removeGame(String game)
     {
-        joinedgames.remove(game);
+        if (joinedgames == null)
+        {
+            joinedgames = new ArrayList<>();
+        }
+        else {
+            joinedgames.remove(game);
+        }
     }
     public void addGame(String game)
     {
+        if (joinedgames == null)
+        {
+            joinedgames = new ArrayList<>();
+        }
         joinedgames.add(game);
     }
+    public boolean playingGame(String game)
+    {
+        return joinedgames.contains(game);
+    }
+
     public ArrayList<String> getJoinedgames()
     {
+
         return joinedgames;
     }
     public double getRating(){
@@ -67,5 +88,9 @@ public class userProfile {
     public String getNickname()
     {
         return nickname;
+    }
+    public String getUserid()
+    {
+        return userid;
     }
 }

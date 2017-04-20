@@ -32,4 +32,14 @@
         android:layout_below="@+id/tv_intro"
 
         />
+    <Button
+        android:layout_toRightOf="@+id/gbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user games"
+        android:onClick="usergames"
+        android:id="@+id/ubutton"
+        android:layout_below="@+id/tv_intro"
+
+        />
 </RelativeLayout>

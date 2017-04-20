@@ -20,7 +20,7 @@ public class gameProfile {
 
     public gameProfile()
     {
-        //default
+        //needed for firebase
     }
     public gameProfile(String loc, String sport, int limit, String owner, Date dateTime)
     {

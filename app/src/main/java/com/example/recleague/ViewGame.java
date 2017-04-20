@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +32,7 @@ public class ViewGame extends AppCompatActivity {
     String gameid;
     gameHolder games;
 
+    userProfile curUser;
     gameProfile selgame;
 
     int current;
@@ -45,6 +48,12 @@ public class ViewGame extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         user = sharedpreferences.getString("user",null);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        final FirebaseUser user2 = mAuth.getCurrentUser();
+
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -66,6 +75,25 @@ public class ViewGame extends AppCompatActivity {
             }
         });
 
+        DatabaseReference usdata = database.getReference(user2.getUid());
+        usdata.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                GenericTypeIndicator<userProfile> t = new GenericTypeIndicator<userProfile>() {};
+                userProfile tmp = dataSnapshot.getValue(t);
+                curUser = tmp;
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
 
 
     }
@@ -75,11 +103,15 @@ public class ViewGame extends AppCompatActivity {
         if (decision == 1)
         {
             selgame.addPlayer(user);
+            Log.d(TAG, "Look here "+ curUser.getUsername());
+
+            curUser.addGame(selgame.getId());
             submit();
         }
         else if (decision == 2)
         {
             selgame.removePlayer(user);
+            curUser.removeGame(selgame.getId());
 
             submit();
         }
@@ -97,9 +129,12 @@ public class ViewGame extends AppCompatActivity {
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
+        DatabaseReference myRef2 = database.getReference(curUser.getUserid());
 
 
         myRef.setValue(games);
+        myRef2.setValue(curUser);
+
 
         Toast.makeText(ViewGame.this, "Game updated",
                 Toast.LENGTH_SHORT).show();
