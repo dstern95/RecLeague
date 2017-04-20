@@ -170,7 +170,7 @@ public class PostGame extends AppCompatActivity {
         location = loc.getText().toString();
 
 
-        dateTime = new Date(2017,Integer.valueOf(month.getText().toString()),Integer.valueOf(day.getText().toString()),
+        dateTime = new Date(117,Integer.valueOf(month.getText().toString()),Integer.valueOf(day.getText().toString()),
                 Integer.valueOf(hour.getText().toString()), Integer.valueOf(min.getText().toString()));
 
 
@@ -201,7 +201,7 @@ public class PostGame extends AppCompatActivity {
 
         Toast.makeText(PostGame.this, "Game posted",
                 Toast.LENGTH_SHORT).show();
-                
+
     }
 
     class sportsListener implements AdapterView.OnItemSelectedListener {

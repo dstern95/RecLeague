@@ -3,6 +3,8 @@ package com.example.recleague;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,10 +24,15 @@ public class gameHolder extends ArrayList<gameProfile>{
     {
         super();
 
+        Calendar c = Calendar.getInstance();
+        Date current = c.getTime();
         for(int i=0; i<tmp.size();i++)
         {
-            this.add(tmp.get(i));
+            Log.d(TAG, current.toString() +" found a match "+tmp.get(i).getDateTime().toString());
 
+            if (tmp.get(i).getDateTime().after(current)) {
+                this.add(tmp.get(i));
+            }
         }
     }
 
@@ -79,8 +86,6 @@ public class gameHolder extends ArrayList<gameProfile>{
                         return true;
                     }
                     i+=1;
-
-
 
             }
 
