@@ -63,8 +63,14 @@ public class ViewGame extends AppCompatActivity {
                 // whenever data at this location is updated.
                 GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {};
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
-                games = new gameHolder(tmp);
-                update(false);
+                if (tmp != null) {
+                    games = new gameHolder(tmp);
+                    update(false);
+                }
+                else
+                {
+                    update(true);
+                }
 
             }
 
@@ -140,6 +146,8 @@ public class ViewGame extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
         if (exit)
         {
+            Log.d(TAG, "none left");
+
             finish();
         }
 

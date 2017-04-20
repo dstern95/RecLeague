@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +62,8 @@ public class PostGame extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     String user;
 
+    userProfile curUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,9 +93,31 @@ public class PostGame extends AppCompatActivity {
         myRef.setValue(games);
 
         */
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        final FirebaseUser user2 = mAuth.getCurrentUser();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef2 = database.getReference(user2.getUid());
+        myRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                GenericTypeIndicator<userProfile> t = new GenericTypeIndicator<userProfile>() {};
+                userProfile tmp = dataSnapshot.getValue(t);
+                curUser = tmp;
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
         DatabaseReference myRef = database.getReference("game");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -139,14 +165,20 @@ public class PostGame extends AppCompatActivity {
         EditText day = (EditText)findViewById(R.id.day_text);
         EditText hour = (EditText)findViewById(R.id.hour_text);
         EditText min = (EditText)findViewById(R.id.min_text);
-        dateTime = new Date(2017,Integer.valueOf(month.getText().toString()),Integer.valueOf(day.getText().toString()),
-                Integer.valueOf(hour.getText().toString()), Integer.valueOf(min.getText().toString()));
 
         EditText loc = (EditText)findViewById(R.id.location_text);
         location = loc.getText().toString();
 
+
+        dateTime = new Date(2017,Integer.valueOf(month.getText().toString()),Integer.valueOf(day.getText().toString()),
+                Integer.valueOf(hour.getText().toString()), Integer.valueOf(min.getText().toString()));
+
+
+
         EditText lim = (EditText)findViewById(R.id.lim_text);
         playerLimit = Integer.valueOf(lim.getText().toString());
+        Log.d(TAG, "Look here "+ location);
+
 
         gameProfile tmp = new gameProfile(location,sport,playerLimit,user,dateTime);
 
@@ -154,14 +186,22 @@ public class PostGame extends AppCompatActivity {
         games.insadd(tmp);
 
 
+        curUser.addGame(tmp.getId());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
 
 
+
+
+        DatabaseReference myRef2 = database.getReference(curUser.getUserid());
+
         myRef.setValue(games);
+        myRef2.setValue(curUser);
+
 
         Toast.makeText(PostGame.this, "Game posted",
                 Toast.LENGTH_SHORT).show();
+                
     }
 
     class sportsListener implements AdapterView.OnItemSelectedListener {

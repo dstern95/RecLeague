@@ -55,17 +55,24 @@ public class FindGame extends AppCompatActivity {
                 // whenever data at this location is updated.
                 GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {};
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
+                final ListView listView = (ListView) findViewById(R.id.game_view);
 
-                gameArray = new String[tmp.size()];
-                masterlist = tmp;
-                for (int i =0; i <tmp.size();i++)
-                {
-                    String name = tmp.get(i).getLocation();
-                    name +="    ";
-                    name +=tmp.get(i).getDateTime().toString();
-                    gameArray[i] = name;
+                if (tmp != null) {
+                    listView.setVisibility(View.VISIBLE);
+                    gameArray = new String[tmp.size()];
+                    masterlist = tmp;
+                    for (int i = 0; i < tmp.size(); i++) {
+                        String name = tmp.get(i).getLocation();
+                        name += "    ";
+                        name += tmp.get(i).getDateTime().toString();
+                        gameArray[i] = name;
+                    }
+                    update();
                 }
-                update();
+                else {
+                    listView.setVisibility(View.INVISIBLE);
+                }
+
 
                 //gameArray = tmp.toArray(new String[tmp.size()]);
                 //GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};

@@ -70,6 +70,11 @@ public class userProfile {
     }
     public boolean playingGame(String game)
     {
+        if (joinedgames == null)
+        {
+            joinedgames = new ArrayList<>();
+        }
+
         return joinedgames.contains(game);
     }
 

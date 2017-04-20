@@ -308,4 +308,19 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        boolean fin = sharedpreferences.getBoolean("fin",false);
+        if (fin)
+        {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putBoolean("fin",false);
+            editor.apply();
+            finish();
+        }
+
+    }
 }

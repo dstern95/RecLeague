@@ -63,16 +63,18 @@ public class FindUserGame extends AppCompatActivity {
                 GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {};
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
 
-                gameArray = new String[tmp.size()];
-                masterlist = tmp;
-                for (int i =0; i <tmp.size();i++)
-                {
-                    String name = tmp.get(i).getLocation();
-                    name +="    ";
-                    name +=tmp.get(i).getDateTime().toString();
-                    gameArray[i] = name;
+                if (tmp!= null) {
+                    gameArray = new String[tmp.size()];
+                    masterlist = tmp;
+                    for (int i = 0; i < tmp.size(); i++) {
+                        String name = tmp.get(i).getLocation();
+                        name += "    ";
+                        name += tmp.get(i).getDateTime().toString();
+                        gameArray[i] = name;
+                    }
+
+                    update();
                 }
-                update();
 
             }
 
