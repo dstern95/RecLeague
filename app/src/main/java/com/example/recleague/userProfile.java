@@ -26,8 +26,11 @@ public class userProfile {
         nickname = username;
         this.username = username;
         userid =id;
-        rating = 0;
+        rating = 5;
         bio = "no bio written";
+        raters = new ArrayList<>();
+        raters.add("dw");
+
 
 
 
@@ -58,10 +61,12 @@ public class userProfile {
         {
             raters = new ArrayList<>();
         }
-        double totrate = rating*raters.size();
-        totrate += urating;
-        raters.add(rater);
-        rating = totrate/raters.size();
+        if (!raters.contains(rater)) {
+            double totrate = rating * raters.size();
+            totrate += urating;
+            raters.add(rater);
+            rating = totrate / raters.size();
+        }
 
 
     }
@@ -94,6 +99,11 @@ public class userProfile {
         return joinedgames.contains(game);
     }
 
+
+    public ArrayList<String> getRaters()
+    {
+        return raters;
+    }
     public ArrayList<String> getJoinedgames()
     {
 

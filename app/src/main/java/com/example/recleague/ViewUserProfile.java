@@ -1,5 +1,6 @@
 package com.example.recleague;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
+import static android.R.attr.name;
 
 public class ViewUserProfile extends AppCompatActivity {
 
@@ -115,6 +120,24 @@ public class ViewUserProfile extends AppCompatActivity {
             myRef.setValue(curProfile);
             Toast.makeText(ViewUserProfile.this, "Game posted",
                     Toast.LENGTH_SHORT).show();
+        }
+        else {
+
+
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+            final FirebaseUser user2 = mAuth.getCurrentUser();
+            RatingBar rb = (RatingBar)findViewById(R.id.dialog_ratingbar);
+            curProfile.addRating(user2.getUid(),(double)rb.getRating());
+
+            Log.d(TAG, Integer.toString(curProfile.getRaters().size()));
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(viewid);
+            myRef.setValue(curProfile);
+            Toast.makeText(ViewUserProfile.this, "Rated",
+                    Toast.LENGTH_SHORT).show();
+
+
         }
 
 
