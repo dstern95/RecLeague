@@ -155,15 +155,6 @@ public class PostGame extends AppCompatActivity {
             }
         });
 
-        final Spinner s = (Spinner)findViewById(R.id.sports);
-
-        /*ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sports);
-
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        s.setAdapter(spinnerArrayAdapter);
-        s.setOnItemSelectedListener(new sportsListener());*/
-
-        //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.sports);
         spin.setOnItemSelectedListener(new sportsListener());
 

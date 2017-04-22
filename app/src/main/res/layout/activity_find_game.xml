@@ -7,20 +7,38 @@
     android:layout_height="match_parent"
     tools:context="com.example.recleague.FindGame">
 
+    <TextView android:id="@+id/find_game_output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-    <Spinner
-        android:id="@+id/sports"
+        android:text="@string/find_game"
+        android:textSize="30sp"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="50dp"/>
+
+    <Spinner android:id="@+id/sports"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
->
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/find_game_output"
+
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+
+        android:background="@color/background">
+
+
     </Spinner>
 
-<ListView
-    android:layout_below="@+id/sports"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/game_view"
-    >
+    <ListView
+        android:layout_below="@+id/sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_view" >
 
-</ListView>
+    </ListView>
+
 </RelativeLayout>
