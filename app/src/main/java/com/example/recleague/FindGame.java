@@ -112,7 +112,7 @@ public class FindGame extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
             sport = sports[pos];
-            //update();
+            update();
 
         }
 
@@ -133,6 +133,7 @@ public class FindGame extends AppCompatActivity {
             {
                 if (masterlist.get(i).getSport().equals(sport))
                 {
+                    Log.d(TAG,masterlist.get(i).getSport());
                     ml.add(masterlist.get(i));
                 }
             }
