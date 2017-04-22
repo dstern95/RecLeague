@@ -5,88 +5,139 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context="com.example.recleague.PostGame">
 
-
-
-    <Button
-        android:id="@+id/ptime"
-        android:layout_width="wrap_content"
+    <TextView android:id="@+id/new_game_output"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="pick time"
-        android:onClick="showTimePickerDialog" />
-    <Button
-        android:layout_width="wrap_content"
+
+        android:text="@string/new_game"
+        android:textSize="30sp"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="50dp"/>
+
+    <TextView android:id="@+id/ptime"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="pick date"
-        android:onClick="showDatePickerDialog"
-        android:layout_toRightOf="@+id/ptime"
+        android:layout_below="@+id/new_game_output"
+
+        android:text="@string/pick_time"
+        android:textSize="18sp"
+
+        android:onClick="showTimePickerDialog"
+
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         />
 
-    <EditText
-        android:layout_width="fill_parent"
+    <TextView android:id="@+id/pdate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/month_text"
         android:layout_below="@+id/ptime"
-        android:hint="month"
-        android:inputType="number"
+
+        android:text="@string/pick_date"
+        android:textSize="18sp"
+
+        android:onClick="showDatePickerDialog"
+
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
         />
 
-    <EditText
+    <View android:id="@+id/line1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/day_text"
-        android:layout_below="@+id/month_text"
-        android:hint="day"
-        android:inputType="number"
-        />
+        android:layout_height="3dp"
+        android:layout_below="@+id/pdate"
+        android:background="#cfd8dc" />
 
-    <EditText
+    <EditText android:id="@+id/lim_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/hour_text"
-        android:layout_below="@+id/day_text"
-        android:hint="hour"
-        android:inputType="number"
-        />
+        android:layout_below="@+id/line1"
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/min_text"
-        android:layout_below="@+id/hour_text"
-        android:hint="minute"
+        android:hint="@string/player_limit"
         android:inputType="number"
-        />
+        android:textSize="18sp"
+        android:background="@android:color/transparent"
 
-    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+    />
+
+    <View android:id="@+id/line2"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lim_text"
-        android:layout_below="@+id/min_text"
-        android:hint="player limit"
-        android:inputType="number"
-        />
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/location_text"
+        android:layout_height="3dp"
         android:layout_below="@+id/lim_text"
-        android:hint="location"
-        />
-    <Spinner
-        android:id="@+id/sports"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/location_text">
+        android:background="#cfd8dc" />
 
-</Spinner>
-    <Button
+    <EditText android:id="@+id/location_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/lim_text"
+        android:hint="@string/location"
+        android:textSize="18sp"
+        android:background="@android:color/transparent"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+    />
+
+    <View android:id="@+id/line3"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/location_text"
+        android:background="#cfd8dc" />
+
+    <Spinner android:id="@+id/sports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:layout_below="@+id/sports"
-        android:text="post"
-        android:onClick="create"
-        />
+        android:layout_below="@+id/line3"
+
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+
+        android:background="@color/background">
+
+
+    </Spinner>
+
+
+    <Button android:id="@+id/post_button"
+        android:text="@string/post_game"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_width="150dp"
+        android:layout_height="39dp"
+
+        android:background="@drawable/button_shape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+        android:onClick="create"/>
+
+
+
 </RelativeLayout>

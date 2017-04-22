@@ -43,7 +43,9 @@ import java.util.Map;
 public class PostGame extends AppCompatActivity {
     private final static String TAG = PostGame.class.getName();
 
-    private String[] sports = new String[3];
+    private String[] sports = {"Soccer", "Basketball", "Water Polo"};
+    private int[] images = {R.drawable.soccer, R.drawable.basketball, R.drawable.water_polo};
+
     private String location;
     private String sport;
     private int playerLimit;
@@ -57,7 +59,11 @@ public class PostGame extends AppCompatActivity {
     public int dy;
     public int mth;
 
+    public boolean timeSet;
+    public boolean dateSet;
+
     gameHolder games;
+
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
     String user;
@@ -72,10 +78,17 @@ public class PostGame extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
+        hr = -1;
+        min = -1;
+        yr = -1;
+        dy = -1;
+        mth = -1;
+
+        timeSet = false;
+        dateSet = false;
+
+
         user = sharedpreferences.getString("user",null);
-        sports[0] = "soccer";
-        sports[1] = "basketball";
-        sports[2] = "water-polo";
         //user = user.replace(".", "~");
 
 
@@ -141,66 +154,80 @@ public class PostGame extends AppCompatActivity {
                 //Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-    }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
         final Spinner s = (Spinner)findViewById(R.id.sports);
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sports);
+        /*ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sports);
 
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         s.setAdapter(spinnerArrayAdapter);
-        s.setOnItemSelectedListener(new sportsListener());
+        s.setOnItemSelectedListener(new sportsListener());*/
 
+        //Getting the instance of Spinner and applying OnItemSelectedListener on it
+        Spinner spin = (Spinner) findViewById(R.id.sports);
+        spin.setOnItemSelectedListener(new sportsListener());
 
-
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), images, sports);
+        spin.setAdapter(customAdapter);
     }
+
     public void create(View v)
     {
+        boolean dateTimeSet = false;
+        boolean playerLimitSet = false;
 
-        EditText month = (EditText)findViewById(R.id.month_text);
-        //int month = Integer.valueOf(etmonth.getText().toString());
-        EditText day = (EditText)findViewById(R.id.day_text);
-        EditText hour = (EditText)findViewById(R.id.hour_text);
-        EditText min = (EditText)findViewById(R.id.min_text);
+        if (timeSet && dateSet) {
+            dateTime = new Date(yr-1900, mth, dy, hr, min);
+            dateTimeSet = true;
+        }
 
         EditText loc = (EditText)findViewById(R.id.location_text);
         location = loc.getText().toString();
 
-
-        dateTime = new Date(117,Integer.valueOf(month.getText().toString()),Integer.valueOf(day.getText().toString()),
-                Integer.valueOf(hour.getText().toString()), Integer.valueOf(min.getText().toString()));
-
-
-
         EditText lim = (EditText)findViewById(R.id.lim_text);
-        playerLimit = Integer.valueOf(lim.getText().toString());
+        String limitStr = lim.getText().toString();
         Log.d(TAG, "Look here "+ location);
 
+        if (!limitStr.equals("")) {
+            playerLimit = Integer.valueOf(limitStr);
+            playerLimitSet = true;
+        }
 
-        gameProfile tmp = new gameProfile(location,sport,playerLimit,user,dateTime, curUser.getUserid());
+        if (!dateTimeSet && !playerLimitSet) {
+            Toast.makeText(PostGame.this, "Please complete all fields",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else if (!dateTimeSet) {
+            Toast.makeText(PostGame.this, "Please choose a date and time",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else if (!playerLimitSet) {
+            Toast.makeText(PostGame.this, "Please choose a player limit",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else {
+            gameProfile tmp = new gameProfile(location, sport, playerLimit, user, dateTime, curUser.getUserid());
 
-        //ArrayList<gameProfile> games = new ArrayList<gameProfile>();
-        games.insadd(tmp);
+            //ArrayList<gameProfile> games = new ArrayList<gameProfile>();
+            games.insadd(tmp);
 
 
-        curUser.addGame(tmp.getId());
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("game");
+            curUser.addGame(tmp.getId());
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("game");
 
 
+            DatabaseReference myRef2 = database.getReference(curUser.getUserid());
+
+            myRef.setValue(games);
+            myRef2.setValue(curUser);
 
 
-        DatabaseReference myRef2 = database.getReference(curUser.getUserid());
+            Toast.makeText(PostGame.this, "Game posted",
+                    Toast.LENGTH_SHORT).show();
 
-        myRef.setValue(games);
-        myRef2.setValue(curUser);
-
-
-        Toast.makeText(PostGame.this, "Game posted",
-                Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
     }
 
@@ -229,13 +256,29 @@ public class PostGame extends AppCompatActivity {
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
+        PostGame activity;
+        int hour;
+        int minute;
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            activity = (PostGame) getActivity();
             // Use the current time as the default values for the picker
             final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
+
+            if (activity.hr == -1) {
+                hour = c.get(Calendar.HOUR_OF_DAY);
+            }
+            else {
+                hour = activity.hr;
+            }
+
+            if (activity.min == -1) {
+                minute = c.get(Calendar.MINUTE);
+            }
+            else {
+                minute = activity.min;
+            }
 
             // Create a new instance of TimePickerDialog and return it
             return new TimePickerDialog(getActivity(), this, hour, minute,
@@ -244,7 +287,12 @@ public class PostGame extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user
+            activity.setHour(hourOfDay);
+            activity.setMinute(minute);
 
+            activity.timeSet = true;
+
+            activity.updateTime();
 
         }
 
@@ -255,13 +303,38 @@ public class PostGame extends AppCompatActivity {
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
+        PostGame activity;
+        int year;
+        int month;
+        int day;
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            activity = (PostGame) getActivity();
+
             // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            if (activity.yr == -1) {
+                year = c.get(Calendar.YEAR);
+            }
+            else {
+                year = activity.yr;
+            }
+
+            if (activity.mth == -1) {
+                month = c.get(Calendar.MONTH);
+            }
+            else {
+                month = activity.mth;
+            }
+
+            if (activity.dy == -1) {
+                day = c.get(Calendar.DAY_OF_MONTH);
+            }
+            else {
+                day = activity.dy;
+            }
 
             // Create a new instance of DatePickerDialog and return it
             return new DatePickerDialog(getActivity(), this, year, month, day);
@@ -270,11 +343,82 @@ public class PostGame extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
 
+            activity.setYear(year);
+            activity.setMonth(month);
+            activity.setDay(day);
+
+            activity.dateSet = true;
+
+            activity.updateDate();
+
         }
     }
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
+
+    public void setHour(int hour) {
+        hr = hour;
+        Log.d(TAG, "hour: " + hour);
+    }
+
+    public void setMinute(int minute) {
+        min = minute;
+        Log.d(TAG, "minute: " + minute);
+    }
+
+    public void setYear(int year) {
+        yr = year;
+        Log.d(TAG, "year: " + year);
+;    }
+
+    public void setMonth(int month) {
+        mth = month;
+        Log.d(TAG, "month: " + month);
+    }
+
+    public void setDay(int day) {
+        dy = day;
+        Log.d(TAG, "day: " + day);
+    }
+
+    public void updateDate() {
+        TextView tv_date = (TextView) findViewById(R.id.pdate);
+        String date = mth + "/" + dy + "/" + yr;
+
+        tv_date.setText(date);
+    }
+
+    public void updateTime() {
+        TextView tv_time = (TextView) findViewById(R.id.ptime);
+        String time;
+
+        int newHr;
+        String period;
+
+        if (hr > 12) {
+            newHr = hr - 12;
+            period = "PM";
+        }
+        else {
+            newHr = hr;
+            period = "AM";
+        }
+
+        if (hr == 12) {
+            period = "PM";
+        }
+
+        if (min < 10) {
+            time = newHr + ":" + "0" + min + " " + period;
+        }
+        else {
+            time = newHr + ":" + min + " " + period;
+        }
+
+        tv_time.setText(time);
+    }
+
 
 }
