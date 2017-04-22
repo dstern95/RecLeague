@@ -95,11 +95,17 @@ public class ViewUserProfile extends AppCompatActivity {
             isUser = true;
             bn.setText("save changes");
 
+            RatingBar rb = (RatingBar)findViewById(R.id.dialog_ratingbar);
+            rb.setVisibility(View.INVISIBLE);
+
         }
         else
         {
             isUser = false;
             bn.setText("Rate");
+            RatingBar rb = (RatingBar)findViewById(R.id.dialog_ratingbar);
+            rb.setVisibility(View.VISIBLE);
+
 
         }
 

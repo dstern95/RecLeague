@@ -64,6 +64,10 @@ public class FindUserGame extends AppCompatActivity {
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
 
                 if (tmp!= null) {
+                    gameHolder tmp2=new gameHolder(tmp);
+                    tmp = (ArrayList<gameProfile>) tmp2;
+                    //this is surprisingly the most efficient solution of taking out the most recent dates
+
                     gameArray = new String[tmp.size()];
                     masterlist = tmp;
                     for (int i = 0; i < tmp.size(); i++) {
