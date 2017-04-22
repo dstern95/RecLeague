@@ -7,7 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +37,7 @@ public class ViewGame extends AppCompatActivity {
 
     userProfile curUser;
     gameProfile selgame;
-
+    String[] signedup;
     int current;
     int max;
     int decision;
@@ -108,7 +111,7 @@ public class ViewGame extends AppCompatActivity {
     {
         if (decision == 1)
         {
-            selgame.addPlayer(user);
+            selgame.addPlayer(user,curUser.getUserid());
             Log.d(TAG, "Look here "+ curUser.getUsername());
 
             curUser.addGame(selgame.getId());
@@ -124,6 +127,41 @@ public class ViewGame extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Spinner s = (Spinner)findViewById(R.id.signeup);
+
+        signedup = new String[1];
+        signedup[0] = "None";
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, signedup);
+
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        s.setAdapter(spinnerArrayAdapter);
+        s.setOnItemSelectedListener(new ViewGame.playersListener());
+
+
+
+    }
+    class playersListener implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+            if (!signedup[pos].equals("None"))
+            {
+                Intent i = new Intent(ViewGame.this, ViewUserProfile.class);
+                i.putExtra("userId", selgame.getGoingid().get(pos-1));
+                startActivity(i);
+            }
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+            //Do nothing
+        }
+    }
     public void submit()
     {
         boolean exit = false;
@@ -222,6 +260,20 @@ public class ViewGame extends AppCompatActivity {
                     }
                 }
 
+
+
+                Spinner s = (Spinner)findViewById(R.id.signeup);
+
+                signedup = new String[selgame.getGoing().size()+1];
+                signedup[0] = "None";
+                for (int i =0; i<selgame.getGoing().size();i++)
+                {
+                    signedup[i+1] = selgame.getGoing().get(i);
+                }
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, signedup);
+
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+                s.setAdapter(spinnerArrayAdapter);
 
 
             }

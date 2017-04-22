@@ -93,26 +93,26 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(intrmessage);
 */
         gameHolder games = new gameHolder();
-        Date dt = new Date(2017,3,3,3,3);
-        Date dt2 = new Date(2016,3,3,2,1);
-        gameProfile gm = new gameProfile("here","coding",5,"me",dt);
+        Date dt = new Date(2018,3,3,3,3);
+        Date dt2 = new Date(2018,3,3,2,1);
+        gameProfile gm = new gameProfile("here","coding",5,"me",dt, "sdfjk");
         games.insadd(gm);
 
-        gameProfile gm2 = new gameProfile("hell","idk",7,"me",dt2);
+        gameProfile gm2 = new gameProfile("hell","idk",7,"me",dt2, "jadkd");
         games.insadd(gm2);
 
         ArrayList<gameProfile> a = new ArrayList<gameProfile>();
-        a.add(gm);
-        a.add(gm2);
+        //a.add(gm);
+        //a.add(gm2);
 
 
 
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference myRef = database.getReference("game");
-        gameHolder games2 = new gameHolder(a);
+        //FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+        //DatabaseReference myRef3 = database2.getReference("game");
+        //gameHolder games2 = new gameHolder(a);
 
 
-        //myRef.setValue(games);
+        //myRef3.setValue(games);
         //user = user.replace(".", "@");
     }
 
@@ -142,6 +142,13 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent1 = new Intent(this, FindUserGame.class);
         startActivity(intent1);
+    }
+    public void userProfile(View v)
+    {
+
+        Intent i = new Intent(this, ViewUserProfile.class);
+        i.putExtra("userId", curUser.getUserid());
+        startActivity(i);
     }
 
 

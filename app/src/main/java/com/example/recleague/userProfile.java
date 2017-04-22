@@ -8,12 +8,13 @@ import java.util.ArrayList;
 
 public class userProfile {
 
-    String nickname;
-    String username;
-    String userid;
-    double rating;
-    ArrayList<String> raters;
-    ArrayList<String> joinedgames;
+    private String nickname;
+    private String username;
+    private String userid;
+    private double rating;
+    private String bio;
+    private ArrayList<String> raters;
+    private ArrayList<String> joinedgames;
 
     public userProfile(){
 
@@ -26,13 +27,28 @@ public class userProfile {
         this.username = username;
         userid =id;
         rating = 0;
+        bio = "no bio written";
 
 
 
     }
 
+    public void setBio(String nbio){
+        bio = nbio;
+    }
+    public String getBio(){
+        return bio;
+    }
+
     public boolean hasRated(String rater)
     {
+
+        if (raters == null)
+        {
+            raters = new ArrayList<>();
+        }
+
+
         return !raters.contains(rater);
     }
 
@@ -82,6 +98,9 @@ public class userProfile {
     {
 
         return joinedgames;
+    }
+    public void setNickname(String newnickname){
+        nickname = newnickname;
     }
     public double getRating(){
         return rating;

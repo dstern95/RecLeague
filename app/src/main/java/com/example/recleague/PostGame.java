@@ -180,7 +180,7 @@ public class PostGame extends AppCompatActivity {
         Log.d(TAG, "Look here "+ location);
 
 
-        gameProfile tmp = new gameProfile(location,sport,playerLimit,user,dateTime);
+        gameProfile tmp = new gameProfile(location,sport,playerLimit,user,dateTime, curUser.getUserid());
 
         //ArrayList<gameProfile> games = new ArrayList<gameProfile>();
         games.insadd(tmp);

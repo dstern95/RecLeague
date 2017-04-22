@@ -89,4 +89,12 @@
         android:visibility="invisible"
 
         />
+
+    <Spinner
+        android:layout_below="@+id/jorl_button"
+        android:id="@+id/signeup"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        >
+    </Spinner>
 </RelativeLayout>

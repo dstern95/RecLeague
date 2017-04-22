@@ -15,6 +15,7 @@ public class gameProfile {
     public String owner;
     public Date dateTime;
     public ArrayList<String> going;
+    public ArrayList<String> goingid;
     public String id;
     private final String TAG = "gameProfile";
 
@@ -22,7 +23,7 @@ public class gameProfile {
     {
         //needed for firebase
     }
-    public gameProfile(String loc, String sport, int limit, String owner, Date dateTime)
+    public gameProfile(String loc, String sport, int limit, String owner, Date dateTime,String ownerid)
     {
 
         location = loc;
@@ -32,6 +33,9 @@ public class gameProfile {
         this.owner = owner;
         this.dateTime = dateTime;
         going = new ArrayList<String>();
+        goingid = new ArrayList<String>();
+
+        goingid.add(ownerid);
         going.add(owner);
         id = "";
         Random r = new Random();
@@ -43,9 +47,20 @@ public class gameProfile {
         }
 
     }
-    public void addPlayer(String name)
+    public void addPlayer(String name,String uid)
     {
+        if (going == null)
+        {
+            going = new ArrayList<String>();
+        }
+
+        if (goingid == null)
+        {
+            goingid = new ArrayList<String>();
+        }
+
         going.add(name);
+        goingid.add(uid);
         currentPlayers +=1;
 
     }
@@ -77,6 +92,25 @@ public class gameProfile {
         }
         return false;
     }
+
+    public boolean isGoingid(String uid)
+    {
+        //name = name.replace(".", "~");
+        for(int i =0;i<goingid.size();i++)
+        {
+            Log.d(TAG, "is looking  "+going.get(i)+" vs "+uid);
+
+            if (uid.equals(goingid.get(i)))
+            {
+                Log.d(TAG, "is going  ");
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public boolean isId(String tmp){
 
         if (id.equals(tmp))
@@ -86,6 +120,11 @@ public class gameProfile {
         }
         return false;
     }
+
+    public ArrayList<String> getGoingid(){
+        return goingid;
+    }
+
     public String getId(){return id;}
     public ArrayList<String> getGoing(){
         return going;

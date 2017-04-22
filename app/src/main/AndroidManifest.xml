@@ -20,7 +20,8 @@
         <activity android:name=".FindGame" />
         <activity android:name=".PostGame" />
         <activity android:name=".ViewGame" />
-        <activity android:name=".FindUserGame"></activity>
+        <activity android:name=".FindUserGame" />
+        <activity android:name=".ViewUserProfile"></activity>
     </application>
 
 </manifest>
