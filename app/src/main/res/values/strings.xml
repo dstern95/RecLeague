@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">RecLeague</string>
-    <string name="password_hint">password</string>
-    <string name="email_hint">email</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
     <string name="login_button">Login</string>
     <string name="create_account_button">Create Account</string>
     <string name="facebook_button">Continue with Facebook</string>
     <string name="google_button">Continue with Google</string>
     <string name="recleague_logo_description">RecLeague Logo</string>
+    <string name="facebook_app_id">118468635370585</string>
 </resources>
