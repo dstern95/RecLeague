@@ -19,4 +19,5 @@
     <string name="post_game">Post Game</string>
     <string name="spinner_default_text">Demo</string>
     <string name="find_game">Find Game</string>
+    <string name="open_post_game">Can\'t find the game for you? Post your own!</string>
 </resources>

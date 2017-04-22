@@ -5,19 +5,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     tools:context="com.example.recleague.PostGame">
 
     <TextView android:id="@+id/new_game_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
 
         android:text="@string/new_game"
         android:textSize="30sp"
+        android:textColor="#FFFFFF"
 
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
         android:layout_marginBottom="50dp"/>
 
     <TextView android:id="@+id/ptime"
@@ -52,9 +57,9 @@
 
     <View android:id="@+id/line1"
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:layout_below="@+id/pdate"
-        android:background="#cfd8dc" />
+        android:background="@color/colorAccent" />
 
     <EditText android:id="@+id/lim_text"
         android:layout_width="fill_parent"
@@ -74,9 +79,9 @@
 
     <View android:id="@+id/line2"
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:layout_below="@+id/lim_text"
-        android:background="#cfd8dc" />
+        android:background="@color/colorAccent" />
 
     <EditText android:id="@+id/location_text"
         android:layout_width="fill_parent"
@@ -95,9 +100,9 @@
 
     <View android:id="@+id/line3"
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:layout_below="@+id/location_text"
-        android:background="#cfd8dc" />
+        android:background="@color/colorAccent" />
 
     <Spinner android:id="@+id/sports"
         android:layout_width="wrap_content"

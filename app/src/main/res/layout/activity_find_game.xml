@@ -10,13 +10,19 @@
     <TextView android:id="@+id/find_game_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
 
         android:text="@string/find_game"
         android:textSize="30sp"
+        android:textColor="#FFFFFF"
 
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
         android:layout_marginBottom="50dp"/>
 
     <Spinner android:id="@+id/sports"
@@ -33,12 +39,40 @@
 
     </Spinner>
 
-    <ListView
+    <ListView android:id="@+id/game_view"
         android:layout_below="@+id/sports"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/game_view" >
+        android:layout_height="400dp"
 
+        android:divider="@color/colorAccent"
+        android:dividerHeight="1dp"
+
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp">
     </ListView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+
+        android:text="@string/open_post_game"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+
+        android:background="@color/colorAccent"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+        android:onClick="postGame"/>
 
 </RelativeLayout>

@@ -168,4 +168,9 @@ public class FindGame extends AppCompatActivity {
         });
     }
 
+    public void postGame(View v) {
+        Intent i = new Intent(FindGame.this, PostGame.class);
+        startActivity(i);
+    }
+
 }
