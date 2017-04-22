@@ -142,6 +142,8 @@ public class FindUserGame extends AppCompatActivity {
 
         final ListView listView = (ListView) findViewById(R.id.game_view);
         listView.setAdapter(itemsAdapter);
+        listView.setClickable(load);
+        listView.setEnabled(load);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

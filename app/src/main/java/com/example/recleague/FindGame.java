@@ -152,28 +152,30 @@ public class FindGame extends AppCompatActivity {
 
         final ListView listView = (ListView) findViewById(R.id.game_view);
         listView.setAdapter(itemsAdapter);
+        listView.setClickable(load);
+        listView.setEnabled(load);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String filename = listView.getItemAtPosition(position).toString();
+                if (load) {
 
-                Intent i = new Intent(FindGame.this, ViewGame.class);
-                i.putExtra("GameName", ml2.get(position).getId());
+                    Intent i = new Intent(FindGame.this, ViewGame.class);
+                    i.putExtra("GameName", ml2.get(position).getId());
 
 
-                startActivity(i);
-
+                    startActivity(i);
+                }
 
             }
         });
     }
 
     public void postGame(View v) {
-        if (load) {
             Intent i = new Intent(FindGame.this, PostGame.class);
             startActivity(i);
-        }
+
     }
 
 }
