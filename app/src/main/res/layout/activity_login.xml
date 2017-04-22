@@ -92,42 +92,25 @@
             android:shadowRadius="5" />
     </LinearLayout>
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/facebookbutton"
         android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:layout_margin="5dp"
-        android:layout_below="@id/login_buttons"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_below="@+id/login_buttons"/>
 
-        android:layout_centerHorizontal="true"
-
-        android:background="@drawable/facebook_shape"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="@string/facebook_button"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp" />
-
-    <Button
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/googlebutton"
         android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:layout_below="@+id/facebookbutton"
-        android:layout_margin="5dp"
-        android:layout_centerHorizontal="true"
-
-        android:background="@drawable/google_shape"
-
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="@string/google_button"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/facebookbutton"/>
 
 
 </RelativeLayout>
