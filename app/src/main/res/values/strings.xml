@@ -18,4 +18,5 @@
     <string name="location">Location</string>
     <string name="post_game">Post Game</string>
     <string name="spinner_default_text">Demo</string>
+    <string name="find_game">Find Game</string>
 </resources>

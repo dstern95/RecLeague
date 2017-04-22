@@ -1,6 +1,7 @@
 package com.example.recleague;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,20 +27,26 @@ public class FindGame extends AppCompatActivity {
 
     String[] gameArray = new String[1];
     ArrayList<gameProfile> masterlist;
-    private String[] sports = new String[4];
+
+    private String[] sports = {"All", "Soccer", "Basketball", "Water Polo"};
+    private int[] images = {R.drawable.sports, R.drawable.soccer, R.drawable.basketball, R.drawable.water_polo};
     private String sport;
+    private final String TAG = "findgame";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_game);
         gameArray[0] = "Loading...";
-        sports[0] = "all";
-        sports[1] = "soccer";
-        sports[2] = "basketball";
-        sports[3] = "water-polo";
 
-        sport = "all";
+        sport = "All";
+
+        Spinner spin = (Spinner) findViewById(R.id.sports);
+        spin.setOnItemSelectedListener(new FindGame.sportsListener());
+
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), images, sports);
+        spin.setAdapter(customAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
@@ -58,13 +65,16 @@ public class FindGame extends AppCompatActivity {
                 final ListView listView = (ListView) findViewById(R.id.game_view);
 
                 if (tmp != null) {
-                    gameHolder tmp2=new gameHolder(tmp);
+
+                    gameHolder tmp2 = new gameHolder(tmp);
                     tmp = (ArrayList<gameProfile>) tmp2;
                     //this is surprisingly the most efficient solution of taking out the most recent dates
 
                     listView.setVisibility(View.VISIBLE);
                     gameArray = new String[tmp.size()];
                     masterlist = tmp;
+                    //Log.d(TAG, Integer.toString(tmp.size()));
+
                     for (int i = 0; i < tmp.size(); i++) {
                         String name = tmp.get(i).getLocation();
                         name += "    ";
@@ -95,27 +105,14 @@ public class FindGame extends AppCompatActivity {
         update();
 
     }
-    @Override
-    protected void onResume(){
-        super.onResume();
-        final Spinner s = (Spinner)findViewById(R.id.sports);
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sports);
-
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        s.setAdapter(spinnerArrayAdapter);
-        s.setOnItemSelectedListener(new sportsListener());
-
-
-
-    }
     class sportsListener implements AdapterView.OnItemSelectedListener {
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
             sport = sports[pos];
-            update();
+            //update();
 
         }
 
@@ -129,7 +126,7 @@ public class FindGame extends AppCompatActivity {
     {
         ArrayList<gameProfile> ml = masterlist;
         String[] gameArray2 = gameArray;
-        if(!sport.equals("all"))
+        if(!sport.equals("All"))
         {
             ml = new ArrayList<gameProfile>();
             for (int i =0; i<masterlist.size();i++)
