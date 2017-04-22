@@ -58,6 +58,10 @@ public class FindGame extends AppCompatActivity {
                 final ListView listView = (ListView) findViewById(R.id.game_view);
 
                 if (tmp != null) {
+                    gameHolder tmp2=new gameHolder(tmp);
+                    tmp = (ArrayList<gameProfile>) tmp2;
+                    //this is surprisingly the most efficient solution of taking out the most recent dates
+
                     listView.setVisibility(View.VISIBLE);
                     gameArray = new String[tmp.size()];
                     masterlist = tmp;
