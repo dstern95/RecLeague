@@ -32,6 +32,7 @@ public class FindGame extends AppCompatActivity {
     private int[] images = {R.drawable.sports, R.drawable.soccer, R.drawable.basketball, R.drawable.water_polo};
     private String sport;
     private final String TAG = "findgame";
+    private boolean load;
 
 
     @Override
@@ -47,7 +48,7 @@ public class FindGame extends AppCompatActivity {
 
         CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), images, sports);
         spin.setAdapter(customAdapter);
-
+        load =false;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -65,7 +66,7 @@ public class FindGame extends AppCompatActivity {
                 final ListView listView = (ListView) findViewById(R.id.game_view);
 
                 if (tmp != null) {
-
+                    load=true;
                     gameHolder tmp2 = new gameHolder(tmp);
                     tmp = (ArrayList<gameProfile>) tmp2;
                     //this is surprisingly the most efficient solution of taking out the most recent dates
@@ -169,8 +170,10 @@ public class FindGame extends AppCompatActivity {
     }
 
     public void postGame(View v) {
-        Intent i = new Intent(FindGame.this, PostGame.class);
-        startActivity(i);
+        if (load) {
+            Intent i = new Intent(FindGame.this, PostGame.class);
+            startActivity(i);
+        }
     }
 
 }

@@ -25,6 +25,7 @@ public class FindUserGame extends AppCompatActivity {
     userProfile curUser;
     ArrayList<gameProfile> masterlist;
     public String[] gameArray;
+    public boolean load;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class FindUserGame extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         final FirebaseUser user2 = mAuth.getCurrentUser();
-
+        load = false;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(user2.getUid());
         myRef.addValueEventListener(new ValueEventListener() {
@@ -70,6 +71,7 @@ public class FindUserGame extends AppCompatActivity {
 
                     gameArray = new String[tmp.size()];
                     masterlist = tmp;
+                    load = true;
                     for (int i = 0; i < tmp.size(); i++) {
                         String name = tmp.get(i).getLocation();
                         name += "    ";
@@ -145,13 +147,13 @@ public class FindUserGame extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String filename = listView.getItemAtPosition(position).toString();
+                if (load) {
+                    Intent i = new Intent(FindUserGame.this, ViewGame.class);
+                    i.putExtra("GameName", ml2.get(position).getId());
 
-                Intent i = new Intent(FindUserGame.this, ViewGame.class);
-                i.putExtra("GameName", ml2.get(position).getId());
 
-
-                startActivity(i);
-
+                    startActivity(i);
+                }
 
             }
         });
