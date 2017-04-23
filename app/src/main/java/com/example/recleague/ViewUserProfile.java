@@ -193,10 +193,10 @@ public class ViewUserProfile extends AppCompatActivity {
                 title.setText(R.string.email);
                 break;
 
-            case R.id.tv_rating:
-                resultText = (TextView) findViewById(R.id.tv_rating);
-                editText.setHint("Rating");
-                title.setText(R.string.rating);
+            case R.id.tv_bio:
+                resultText = (TextView) findViewById(R.id.tv_bio_result);
+                editText.setHint("Bio");
+                title.setText(R.string.bio);
                 break;
 
         }
