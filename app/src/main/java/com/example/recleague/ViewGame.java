@@ -3,6 +3,7 @@ package com.example.recleague;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,9 +39,12 @@ public class ViewGame extends AppCompatActivity {
     userProfile curUser;
     gameProfile selgame;
     String[] signedup;
+    Bitmap[] images;
+
     int current;
     int max;
     int decision;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,8 +106,6 @@ public class ViewGame extends AppCompatActivity {
                 //Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
 
     }
 
@@ -208,10 +210,19 @@ public class ViewGame extends AppCompatActivity {
 
 
                 TextView tv_date = (TextView)findViewById(R.id.date_text);
+                TextView date = (TextView) findViewById(R.id.tv_date);
+
                 TextView tv_sport = (TextView)findViewById(R.id.sport_text);
+                TextView sport = (TextView) findViewById(R.id.tv_sport);
+
                 TextView tv_location = (TextView)findViewById(R.id.location_text);
+                TextView location = (TextView) findViewById(R.id.tv_location);
+
                 TextView tv_owner = (TextView)findViewById(R.id.owner_text);
+                TextView owner = (TextView) findViewById(R.id.tv_owner);
+
                 TextView tv_lim = (TextView)findViewById(R.id.lim_text);
+                TextView lim = (TextView) findViewById(R.id.tv_limit);
 
                 TextView tv_load = (TextView)findViewById(R.id.load_text);
 
@@ -219,15 +230,20 @@ public class ViewGame extends AppCompatActivity {
 
                 tv_date.setText(selgame.getDateTime().toString());
                 tv_date.setVisibility(View.VISIBLE);
+                date.setVisibility(View.VISIBLE);
+
 
                 tv_owner.setText(selgame.getOwner());
                 tv_owner.setVisibility(View.VISIBLE);
+                owner.setVisibility(View.VISIBLE);
 
                 tv_sport.setText(selgame.getSport());
                 tv_sport.setVisibility(View.VISIBLE);
+                sport.setVisibility(View.VISIBLE);
 
                 tv_location.setText(selgame.getLocation());
                 tv_location.setVisibility(View.VISIBLE);
+                location.setVisibility(View.VISIBLE);
 
                 current = selgame.getCurrentPlayers();
                 max = selgame.getPlayerLimit();
@@ -238,6 +254,7 @@ public class ViewGame extends AppCompatActivity {
                 tmp+=Integer.toString(max);
                 tv_lim.setText(tmp);
                 tv_lim.setVisibility(View.VISIBLE);
+                lim.setVisibility(View.VISIBLE);
 
                 Button bt = (Button)findViewById(R.id.jorl_button);
                 bt.setVisibility(View.VISIBLE);
@@ -261,20 +278,24 @@ public class ViewGame extends AppCompatActivity {
                 }
 
 
-
-                Spinner s = (Spinner)findViewById(R.id.signeup);
-
                 signedup = new String[selgame.getGoing().size()+1];
+                images = new Bitmap[selgame.getGoing().size()+1];
+
                 signedup[0] = "None";
-                for (int i =0; i<selgame.getGoing().size();i++)
+                images[0] = null;
+
+                for (int i =0; i < selgame.getGoing().size();i++)
                 {
                     signedup[i+1] = selgame.getGoing().get(i);
                 }
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, signedup);
 
-                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-                s.setAdapter(spinnerArrayAdapter);
 
+
+                Spinner spin = (Spinner) findViewById(R.id.signeup);
+                spin.setOnItemSelectedListener(new ViewGame.playersListener());
+
+                CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), signedup);
+                spin.setAdapter(customAdapter);
 
             }
 

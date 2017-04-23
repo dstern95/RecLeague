@@ -14,10 +14,24 @@ public class CustomAdapter extends BaseAdapter {
     String[] sports;
     LayoutInflater inflter;
 
-    public CustomAdapter(Context applicationContext, int[] flags, String[] countryNames) {
+    public CustomAdapter(Context applicationContext, int[] images, String[] sports) {
         this.context = applicationContext;
-        this.images = flags;
-        this.sports = countryNames;
+        this.images = images;
+        this.sports = sports;
+        inflter = (LayoutInflater.from(applicationContext));
+    }
+
+    public CustomAdapter(Context applicationContext, String[] sports) {
+        this.context = applicationContext;
+
+        int[] addedImages = new int[sports.length];
+
+        for (int i = 0; i < sports.length; i++) {
+            addedImages[i] = R.mipmap.ic_launcher;
+        }
+
+        this.images = addedImages;
+        this.sports = sports;
         inflter = (LayoutInflater.from(applicationContext));
     }
 

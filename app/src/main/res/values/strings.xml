@@ -34,4 +34,7 @@
     <string name="game_details">Game Details</string>
     <string name="date">Date</string>
     <string name="sport">Sport</string>
+    <string name="loading">Loading...</string>
+    <string name="join">Join</string>
+    <string name="owner">Owner</string>
 </resources>
