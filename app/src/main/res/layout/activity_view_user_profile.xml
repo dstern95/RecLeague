@@ -97,7 +97,8 @@
             android:text="@string/bio"
             android:textSize="30sp"
 
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:onClick="openAlert"/>
 
         <TextView android:id="@+id/tv_bio_result"
             android:layout_width="wrap_content"

@@ -218,11 +218,11 @@ public class ViewUserProfile extends AppCompatActivity {
         final EditText editText = (EditText) promptView.findViewById(R.id.alert_ev);
 
         switch (v.getId()) {
-            case R.id.tv_nickname:
+            /*case R.id.tv_nickname:
                 resultText = (TextView) findViewById(R.id.tv_nickname_result);
                 editText.setHint("Nickname");
                 title.setText(R.string.nickname);
-                break;
+                break;*/
 
             case R.id.tv_bio:
                 resultText = (TextView) findViewById(R.id.tv_bio_result);
