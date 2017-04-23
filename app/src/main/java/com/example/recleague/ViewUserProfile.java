@@ -176,7 +176,7 @@ public class ViewUserProfile extends AppCompatActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ViewUserProfile.this);
         alertDialogBuilder.setView(promptView);
 
-        TextView title = (TextView)findViewById(R.id.alert_tv);
+        final TextView title = (TextView)promptView.findViewById(R.id.alert_tv);
 
         final EditText editText = (EditText) promptView.findViewById(R.id.alert_ev);
 
@@ -185,16 +185,19 @@ public class ViewUserProfile extends AppCompatActivity {
                 resultText = (TextView) findViewById(R.id.tv_nickname_result);
                 editText.setHint("Nickname");
                 title.setText(R.string.nickname);
+                break;
 
             case R.id.tv_email:
                 resultText = (TextView) findViewById(R.id.tv_email_result);
                 editText.setHint("Email");
                 title.setText(R.string.email);
+                break;
 
             case R.id.tv_rating:
                 resultText = (TextView) findViewById(R.id.tv_rating);
                 editText.setHint("Rating");
                 title.setText(R.string.rating);
+                break;
 
         }
 
