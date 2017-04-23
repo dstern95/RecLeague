@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.recleague.ViewUserProfile">
 
-    <TextView android:id="@+id/nickname_output"
+    <TextView android:id="@+id/name_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
 
-        android:text="@string/default_user_name"
+        android:text="@string/name_output"
         android:textSize="30sp"
         android:textColor="#FFFFFF"
 
@@ -23,10 +23,23 @@
 
         android:layout_marginBottom="10dp"/>
 
+    <ImageView android:id="@+id/profile_photo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/name_output"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+
+        android:src="@drawable/profile_head"
+        android:onClick="changePhoto"
+        android:longClickable="true"
+        android:contentDescription="@string/profile_picture_description"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nickname_output"
+        android:layout_below="@+id/profile_photo"
         android:orientation="vertical"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp">
@@ -36,7 +49,7 @@
             android:layout_height="wrap_content"
 
             android:text="@string/nickname"
-            android:textSize="25sp"
+            android:textSize="30sp"
 
             android:layout_marginBottom="3dp"
 
@@ -44,7 +57,7 @@
 
         <TextView android:id="@+id/tv_nickname_result"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
 
             android:text="@string/nickname_default_val"
             android:textSize="18sp" />
@@ -55,38 +68,12 @@
             android:background="@color/colorAccent"
             android:layout_marginBottom="10dp"/>
 
-
-        <TextView android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/email"
-            android:textSize="25sp"
-
-            android:layout_marginBottom="3dp"
-
-            android:onClick="openAlert"/>
-
-        <TextView android:id="@+id/tv_email_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/email"
-            android:textSize="18sp"/>
-
-        <View android:id="@+id/line2"
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorAccent"
-            android:layout_marginBottom="10dp"/>
-
-
         <TextView android:id="@+id/tv_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:text="@string/rating"
-            android:textSize="25sp"
+            android:textSize="30sp"
 
             android:layout_marginBottom="3dp" />
 
@@ -97,7 +84,7 @@
             android:text="@string/rating"
             android:textSize="18sp"/>
 
-        <View android:id="@+id/line3"
+        <View android:id="@+id/line2"
             android:layout_width="fill_parent"
             android:layout_height="2dp"
             android:background="@color/colorAccent"
@@ -108,13 +95,13 @@
             android:layout_height="wrap_content"
 
             android:text="@string/bio"
-            android:textSize="25sp"
+            android:textSize="30sp"
 
             android:layout_marginBottom="3dp" />
 
         <TextView android:id="@+id/tv_bio_result"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
 
             android:text="@string/bio"
             android:textSize="18sp"/>
@@ -122,7 +109,7 @@
         <RatingBar android:id="@+id/dialog_ratingbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="30dp"
             android:clickable="true"
             android:layout_gravity="center"
 

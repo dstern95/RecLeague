@@ -7,92 +7,145 @@
     android:layout_height="match_parent"
     tools:context="com.example.recleague.ViewGame">
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <TextView android:id="@+id/tv_game_details"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/date_text"
-        android:textSize="30dp"
+        android:background="@color/colorAccent"
 
-        android:hint="sport"
-        android:visibility="invisible"
+        android:text="@string/game_details"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
 
-        />
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
 
+        android:layout_marginBottom="10dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sport_text"
-        android:textSize="30dp"
-        android:layout_below="@+id/date_text"
-        android:hint="sport"
-        android:visibility="invisible"
+        android:layout_below="@+id/tv_game_details"
+        android:orientation="vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp">
 
-        />
+        <TextView android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/location_text"
-        android:layout_below="@+id/sport_text"
-        android:hint="location"
-        android:textSize="30dp"
-        android:visibility="invisible"
+            android:text="@string/date"
+            android:textSize="30sp"
 
-        />
+            android:layout_marginBottom="3dp"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/owner_text"
-        android:layout_below="@+id/location_text"
-        android:hint="owner"
-        android:textSize="30dp"
-        android:visibility="invisible"
+            android:visibility="visible"/>
 
-        />
+        <TextView android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lim_text"
-        android:layout_below="@+id/owner_text"
-        android:hint="player limit"
-        android:textSize="30dp"
-        android:visibility="invisible"
+            android:text="@string/date"
+            android:textSize="18sp"
+
+            android:visibility="visible"/>
+
+        <View android:id="@+id/line1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView android:id="@+id/tv_sport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/sport"
+            android:textSize="30sp"
+
+            android:layout_marginBottom="3dp" />
+
+        <TextView android:id="@+id/sport_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+
+            android:text="@string/sport"
+            android:textSize="18sp" />
+
+        <View android:id="@+id/line2"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"
+            android:layout_marginBottom="10dp"/>
 
 
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/location_text"
+            android:layout_below="@+id/sport_text"
+            android:hint="location"
+            android:textSize="30dp"
+            android:visibility="visible"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/load_text"
-        android:text="Loading..."
-        android:textSize="30dp"
-        android:layout_centerInParent="true"
+            />
 
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/owner_text"
+            android:layout_below="@+id/location_text"
+            android:hint="owner"
+            android:textSize="30dp"
+            android:visibility="visible"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lim_text"
+            android:layout_below="@+id/owner_text"
+            android:hint="player limit"
+            android:textSize="30dp"
+            android:visibility="visible"
 
 
-    <Button
-        android:id="@+id/jorl_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:layout_below="@+id/lim_text"
-        android:onClick="joinorleave"
-        android:text="join"
-        android:visibility="invisible"
+            />
 
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/load_text"
+            android:text="Loading..."
+            android:textSize="30dp"
+            android:layout_centerInParent="true"
 
-    <Spinner
-        android:layout_below="@+id/jorl_button"
-        android:id="@+id/signeup"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        >
-    </Spinner>
+            />
+
+
+        <Button
+            android:id="@+id/jorl_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:layout_below="@+id/lim_text"
+            android:onClick="joinorleave"
+            android:text="join"
+            android:visibility="visible"
+
+            />
+
+        <Spinner
+            android:layout_below="@+id/jorl_button"
+            android:id="@+id/signeup"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            >
+        </Spinner>
+
+    </LinearLayout>
 </RelativeLayout>

@@ -3,6 +3,9 @@ package com.example.recleague;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,12 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,11 +33,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+
 import static android.R.attr.name;
 
 public class ViewUserProfile extends AppCompatActivity {
 
     private final String TAG = "viewgame";
+    private int PICK_IMAGE_REQUEST = 1;
 
     boolean isUser;
     String viewid;
@@ -70,6 +78,35 @@ public class ViewUserProfile extends AppCompatActivity {
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        final ImageView photo = (ImageView) findViewById(R.id.profile_photo);
+        photo.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d(TAG, "here");
+                AlertDialog.Builder builder = new AlertDialog.Builder(ViewUserProfile.this);
+                builder.setMessage("Are you sure you want to remove the image?")
+                        .setTitle("Remove Profile Picture");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        photo.setImageResource(R.drawable.profile_head);
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Do Nothing
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                return true;
             }
         });
 
@@ -187,12 +224,6 @@ public class ViewUserProfile extends AppCompatActivity {
                 title.setText(R.string.nickname);
                 break;
 
-            case R.id.tv_email:
-                resultText = (TextView) findViewById(R.id.tv_email_result);
-                editText.setHint("Email");
-                title.setText(R.string.email);
-                break;
-
             case R.id.tv_bio:
                 resultText = (TextView) findViewById(R.id.tv_bio_result);
                 editText.setHint("Bio");
@@ -221,6 +252,37 @@ public class ViewUserProfile extends AppCompatActivity {
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+    }
+
+    public void changePhoto(View v) {
+        Intent intent = new Intent();
+        //Show only images, no videos or anything else
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        //Always show the chooser (if there are multiple options available)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+
+                ImageView photo = (ImageView) findViewById(R.id.profile_photo);
+                photo.getWidth();
+                photo.setImageBitmap(bitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

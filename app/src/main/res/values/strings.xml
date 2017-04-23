@@ -29,4 +29,9 @@
     <string name="email">Email</string>
     <string name="rating">Rating</string>
     <string name="bio">Bio</string>
+    <string name="profile_picture_description">Profile Picture</string>
+    <string name="name_output">Name</string>
+    <string name="game_details">Game Details</string>
+    <string name="date">Date</string>
+    <string name="sport">Sport</string>
 </resources>
