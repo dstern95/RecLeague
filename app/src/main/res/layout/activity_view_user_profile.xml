@@ -7,107 +7,122 @@
     android:layout_height="match_parent"
     tools:context="com.example.recleague.ViewUserProfile">
 
-
-    <EditText
-        android:layout_width="wrap_content"
+    <TextView android:id="@+id/nickname_output"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nickname"
-        android:clickable="false"
-        android:focusable="false"
+        android:background="@color/colorAccent"
 
-        android:id="@+id/ev_nickname"
-        android:layout_toRightOf="@+id/tv_nickname"
+        android:text="@string/default_user_name"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
 
-        />
-    <EditText
-        android:layout_width="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nickname:"
-        android:id="@+id/tv_nickname"
-        android:editable="false"
+        android:layout_below="@+id/nickname_output"
+        android:orientation="vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp">
+
+        <TextView android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/nickname"
+            android:textSize="25sp"
+
+            android:layout_marginBottom="3dp"
+
+            android:onClick="openAlert"/>
+
+        <TextView android:id="@+id/tv_nickname_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/nickname_default_val"
+            android:textSize="18sp" />
+
+        <View android:id="@+id/line1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"
+            android:layout_marginBottom="10dp"/>
 
 
-        />
-    <EditText
-        android:layout_below="@+id/ev_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:editable="false"
-        android:text="Email:"
-        android:id="@+id/tv_username"
+        <TextView android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        />
-    <EditText
-        android:layout_below="@+id/ev_nickname"
-        android:layout_toRightOf="@id/tv_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="false"
-        android:text="Email"
-        android:id="@+id/ev_username"
+            android:text="@string/email"
+            android:textSize="25sp"
 
-        />
-    <EditText
-        android:layout_below="@id/ev_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:editable="false"
-        android:text="Rating:"
-        android:id="@+id/tv_rating"
+            android:layout_marginBottom="3dp"
 
-        />
-    <EditText
-        android:layout_below="@id/ev_username"
-        android:layout_toRightOf="@+id/tv_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="false"
-        android:text="rating"
-        android:id="@+id/ev_rating"
+            android:onClick="openAlert"/>
 
-        />
-    <EditText
-        android:layout_below="@id/ev_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:editable="false"
-        android:text="Bio"
-        android:id="@+id/tv_bio"
+        <TextView android:id="@+id/tv_email_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        />
-    <EditText
-        android:layout_below="@id/tv_bio"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="false"
-        android:text="Bio"
-        android:id="@+id/ev_bio"
+            android:text="@string/email"
+            android:textSize="18sp"/>
 
-        />
+        <View android:id="@+id/line2"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"
+            android:layout_marginBottom="10dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/save_button"
-        android:onClick="change"
+
+        <TextView android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/rating"
+            android:textSize="25sp"
+
+            android:layout_marginBottom="3dp"
+
+            android:onClick="openAlert"/>
+
+        <TextView android:id="@+id/tv_rating_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/rating"
+            android:textSize="18sp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/save_button"
+            android:onClick="change"
 
 
 
-        />
+            />
 
-    <RatingBar
-        android:layout_below="@+id/ev_bio"
-        android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:clickable="true"
-        android:id="@+id/dialog_ratingbar"
-        android:layout_gravity="center"
-        android:numStars="5" android:stepSize="0.5" android:rating="0.5"
-        android:isIndicator="false"/>
+        <RatingBar
+            android:layout_below="@+id/ev_bio"
+            android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:clickable="true"
+            android:id="@+id/dialog_ratingbar"
+            android:layout_gravity="center"
+            android:numStars="5" android:stepSize="0.5" android:rating="0.5"
+            android:isIndicator="false"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

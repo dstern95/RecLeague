@@ -20,4 +20,12 @@
     <string name="spinner_default_text">Demo</string>
     <string name="find_game">Find Game</string>
     <string name="open_post_game">Can\'t find the game for you? Post your own!</string>
+    <string name="my_games">My Games</string>
+    <string name="default_user_name">Nickname</string>
+    <string name="nickname">Nickname</string>
+    <string name="enter_nickname_default">Enter Nickname</string>
+    <string name="nickname_default_hint">Nickname</string>
+    <string name="nickname_default_val">Nickname</string>
+    <string name="email">Email</string>
+    <string name="rating">Rating</string>
 </resources>

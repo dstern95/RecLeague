@@ -142,8 +142,8 @@ public class FindGame extends AppCompatActivity {
             for (int i = 0;i<ml.size();i++)
             {
                 String name = ml.get(i).getLocation();
-                name +="    ";
-                name +=ml.get(i).getDateTime().toString();
+                name += "    ";
+                name += ml.get(i).getDateTime().toString();
                 gameArray2[i] = name;
             }
         }

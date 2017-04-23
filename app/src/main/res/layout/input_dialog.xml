@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/user_profile_layout">
+
+    <TextView android:id="@+id/alert_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+
+        android:text="@string/enter_nickname_default"
+        android:textSize="25sp"
+        android:background="@color/colorAccent"
+        android:textColor="#FFFFFF"
+        />
+
+    <EditText android:id="@+id/alert_ev"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nickname_default_hint"
+        android:padding="10dp" />
+
+</LinearLayout>
