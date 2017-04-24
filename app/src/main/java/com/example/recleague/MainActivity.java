@@ -1,14 +1,22 @@
 package com.example.recleague;
 
+import android.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.support.annotation.StringDef;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -25,6 +33,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     public static final String MyPREFERENCES = "MyPrefs" ;
+    private final static int REQUEST_CODE = 001;
+
     SharedPreferences sharedpreferences;
     String user;
     userProfile curUser;
@@ -35,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-
         user = sharedpreferences.getString("user",null);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -44,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("user", user2.getEmail());
         editor.apply();
+
+        // Request the permission be turned on
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -114,7 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
         //myRef3.setValue(games);
         //user = user.replace(".", "@");
+
+
+
     }
+
 
     public void newUser(FirebaseUser user2)
     {
