@@ -42,4 +42,6 @@
     <string name="user_games">User Games</string>
     <string name="user_profile">User Profile</string>
     <string name="title_activity_location_chooser">Map</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="get_from_maps">Get from Maps</string>
 </resources>

@@ -54,12 +54,17 @@ dependencies {
     //Facebook Login
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
-    //Google Play Services - Location
+    //Google Play Services
     compile 'com.google.android.gms:play-services-location:10.2.1'
+    compile 'com.google.android.gms:play-services-maps:10.2.1'
+
 
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -409,6 +410,11 @@ public class PostGame extends AppCompatActivity {
         }
 
         tv_time.setText(time);
+    }
+
+    public void openMaps(View v) {
+        Intent i = new Intent(PostGame.this, MapsActivity.class);
+        startActivity(i);
     }
 
 
