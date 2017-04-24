@@ -36,7 +36,7 @@
         android:longClickable="true"
         android:contentDescription="@string/profile_picture_description"/>
 
-    <LinearLayout android:id="@+id/linearLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_photo"
@@ -107,21 +107,18 @@
             android:text="@string/bio"
             android:textSize="18sp"/>
 
+        <RatingBar android:id="@+id/dialog_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:layout_gravity="center"
+
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="0.5"
+            android:isIndicator="false"/>
+
     </LinearLayout>
-
-    <RatingBar android:id="@+id/dialog_ratingbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/linearLayout"
-        android:clickable="true"
-        android:layout_centerHorizontal="true"
-
-        android:numStars="5"
-        android:stepSize="1.0"
-        android:rating="0.5"
-        android:isIndicator="false"/>
-
-
 
 </RelativeLayout>

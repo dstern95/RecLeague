@@ -15,6 +15,8 @@ public class userProfile {
     private String bio;
     private ArrayList<String> raters;
     private ArrayList<String> joinedgames;
+    private String picid;
+
 
     public userProfile(){
 
@@ -29,13 +31,15 @@ public class userProfile {
         rating = 5;
         bio = "no bio written";
         raters = new ArrayList<>();
-        raters.add("dw");
+
 
 
 
 
     }
 
+    public void setPicid(String pic){picid =pic;}
+    public String getPicid(){return picid;}
     public void setBio(String nbio){
         bio = nbio;
     }
