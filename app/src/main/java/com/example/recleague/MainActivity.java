@@ -30,10 +30,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String MyPREFERENCES = "MyPrefs" ;
     private final static int REQUEST_CODE = 001;
+    public static final int RequestPermissionCode = 1;
+
 
     SharedPreferences sharedpreferences;
     String user;
@@ -56,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
 
         // Request the permission be turned on
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
 
+        if(!checkPerm()){
+            requestPerm();
+        }
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(user2.getUid());
@@ -133,7 +139,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    private void requestPerm(){
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_COARSE_LOCATION}, RequestPermissionCode);
+    }
+    public boolean checkPerm(){
+        int r1 = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_COARSE_LOCATION);
+        boolean c;
+        if(r1 == PackageManager.PERMISSION_GRANTED){
+            c = true;
+        }
+        else{
+            c = false;
+        }
+        return c;
+    }
     public void newUser(FirebaseUser user2)
     {
         curUser = new userProfile(user2.getDisplayName(),user2.getUid());
