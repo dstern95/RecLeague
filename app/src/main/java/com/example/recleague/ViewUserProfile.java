@@ -282,7 +282,7 @@ public class ViewUserProfile extends AppCompatActivity {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
             final FirebaseUser user2 = mAuth.getCurrentUser();
-            curProfile.addRating(user2.getUid(),(double) rb.getStepSize());
+            curProfile.addRating(user2.getUid(),(double) rb.getRating());
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(viewid);

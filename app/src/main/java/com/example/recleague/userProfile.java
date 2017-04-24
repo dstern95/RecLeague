@@ -1,6 +1,10 @@
 package com.example.recleague;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+
+import static com.facebook.GraphRequest.TAG;
 
 /**
  * Created by davidstern on 4/18/17.
@@ -61,6 +65,7 @@ public class userProfile {
 
     public void addRating(String rater,double urating)
     {
+        Log.d(TAG, "here "+Double.toString(urating) );
         if (raters == null)
         {
             raters = new ArrayList<>();
