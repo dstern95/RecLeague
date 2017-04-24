@@ -41,4 +41,5 @@
     <string name="find_games">Find Games</string>
     <string name="user_games">User Games</string>
     <string name="user_profile">User Profile</string>
+    <string name="title_activity_location_chooser">Map</string>
 </resources>
