@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         final FirebaseUser user2 = mAuth.getCurrentUser();
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("user", user2.getEmail());
+        editor.putString("user", user2.getDisplayName());
+
         editor.apply();
 
 
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void newUser(FirebaseUser user2)
     {
-        curUser = new userProfile(user2.getEmail(),user2.getUid());
+        curUser = new userProfile(user2.getDisplayName(),user2.getUid());
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(user2.getUid());
