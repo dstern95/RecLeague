@@ -7,49 +7,109 @@
     android:layout_height="match_parent"
     tools:context="com.example.recleague.MainActivity">
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/tv_intro"
-
-        />
-    <Button
-        android:id="@+id/sbutton"
-        android:layout_width="wrap_content"
+    <TextView android:id="@+id/tv_intro"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_intro"
-        android:text="post games"
-        android:onClick="post"
+        android:background="@color/colorAccent"
 
-        />
-    <Button
-        android:layout_toRightOf="@+id/sbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="find games"
-        android:onClick="find"
-        android:id="@+id/gbutton"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        android:layout_marginBottom="50dp"/>
+
+    <Button android:id="@+id/sbutton"
         android:layout_below="@+id/tv_intro"
 
-        />
-    <Button
-        android:layout_toRightOf="@+id/gbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="user games"
-        android:onClick="usergames"
-        android:id="@+id/ubutton"
-        android:layout_below="@+id/tv_intro"
+        android:text="@string/post_games"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
 
-        />
+        android:layout_gravity="center_vertical"
+        android:layout_centerHorizontal="true"
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="user profile"
-        android:onClick="userProfile"
-        android:id="@+id/upbutton"
-        android:layout_below="@id/gbutton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
 
-        />
+        android:background="@drawable/button_shape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+        android:onClick="post" />
+
+    <Button android:id="@+id/gbutton"
+        android:layout_below="@+id/sbutton"
+
+        android:text="@string/find_games"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="@drawable/button_shape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+        android:onClick="find" />
+
+    <Button android:id="@+id/ubutton"
+        android:layout_below="@+id/gbutton"
+
+        android:text="@string/user_games"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="@drawable/button_shape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+
+        android:onClick="usergames" />
+
+    <Button android:id="@+id/upbutton"
+        android:layout_below="@+id/ubutton"
+
+        android:text="@string/user_profile"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="@drawable/button_shape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+        android:onClick="userProfile" />
 </RelativeLayout>

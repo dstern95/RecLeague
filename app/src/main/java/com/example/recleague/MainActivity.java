@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView tv = (TextView) findViewById(R.id.tv_intro);
 
-                String intrmessage = "hello ";
+                String intrmessage = "Welcome to RecLeague, ";
                 intrmessage += curUser.getNickname();
-                intrmessage += " welcome to RecLeague";
+                intrmessage += "!";
                 tv.setText(intrmessage);
 
 

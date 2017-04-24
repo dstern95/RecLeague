@@ -58,11 +58,27 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     CallbackManager mCallbackManager;
 
     private boolean done = false;
+    private boolean loggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        loggedIn = sharedpreferences.getBoolean("loggedIn",false);
+
+        Log.d(TAG, "loggedIn: " + String.valueOf(loggedIn));
+
+        if (loggedIn) {
+            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("user", username);
+            editor.apply();
+            done = true;
+            newActivity();
+
+        }
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -180,11 +196,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString("user", username);
-                            editor.commit();
+                            editor.putBoolean("loggedIn", true);
+                            editor.apply();
                             done = true;
                             newActivity();
-
-
                         }
 
 
@@ -225,6 +240,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString("user", username);
+                            editor.putBoolean("loggedIn", true);
                             editor.apply();
                             done = true;
                             newActivity();
@@ -313,6 +329,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            
+            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("user", username);
+            editor.putBoolean("loggedIn", true);
+            editor.apply();
             done = true;
             newActivity();
         }
@@ -378,6 +400,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString("user", user.getEmail());
+                            editor.putBoolean("loggedIn", true);
                             editor.apply();
                             done = true;
                             newActivity();
