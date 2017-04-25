@@ -196,7 +196,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString("user", username);
-                            editor.putBoolean("loggedIn", true);
+                            //editor.putBoolean("loggedIn", true);
                             editor.apply();
                             done = true;
                             newActivity();
@@ -240,7 +240,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString("user", username);
-                            editor.putBoolean("loggedIn", true);
+                            //editor.putBoolean("loggedIn", true);
                             editor.apply();
                             done = true;
                             newActivity();
@@ -333,7 +333,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("user", username);
-            editor.putBoolean("loggedIn", true);
+            //editor.putBoolean("loggedIn", true);
             editor.apply();
             done = true;
             newActivity();
@@ -400,7 +400,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString("user", user.getEmail());
-                            editor.putBoolean("loggedIn", true);
+                            //editor.putBoolean("loggedIn", true);
                             editor.apply();
                             done = true;
                             newActivity();

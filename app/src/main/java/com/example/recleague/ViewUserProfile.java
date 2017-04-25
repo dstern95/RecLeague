@@ -137,6 +137,9 @@ public class ViewUserProfile extends AppCompatActivity {
     public void update(userProfile vuser)
     {
 
+        TextView tvName = (TextView)findViewById(R.id.name_output);
+        tvName.setText(vuser.getNickname());
+
         TextView tvn = (TextView)findViewById(R.id.tv_nickname_result);
         tvn.setText(vuser.getNickname());
 

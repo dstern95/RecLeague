@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -414,7 +415,24 @@ public class PostGame extends AppCompatActivity {
 
     public void openMaps(View v) {
         Intent i = new Intent(PostGame.this, MapsActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        /*if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                Intent i = getIntent();
+                Bundle extras = i.getExtras();
+
+                if (!extras.isEmpty()) {
+                    LatLng location = (LatLng) extras.get("location");
+
+                }
+            }
+        }*/
     }
 
 
