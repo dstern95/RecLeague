@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +45,8 @@ public class ViewGame extends AppCompatActivity {
     int current;
     int max;
     int decision;
+
+    LatLng coordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,6 +220,7 @@ public class ViewGame extends AppCompatActivity {
 
                 TextView tv_location = (TextView)findViewById(R.id.location_text);
                 TextView location = (TextView) findViewById(R.id.tv_location);
+                Button mapButton = (Button) findViewById(R.id.open_maps);
 
                 TextView tv_owner = (TextView)findViewById(R.id.owner_text);
                 TextView owner = (TextView) findViewById(R.id.tv_owner);
@@ -244,6 +248,12 @@ public class ViewGame extends AppCompatActivity {
                 tv_location.setText(selgame.getLocation());
                 tv_location.setVisibility(View.VISIBLE);
                 location.setVisibility(View.VISIBLE);
+
+                coordinates = selgame.getLatLlng();
+
+                if (coordinates != null) {
+                    mapButton.setVisibility(View.VISIBLE);
+                }
 
                 current = selgame.getCurrentPlayers();
                 max = selgame.getPlayerLimit();
@@ -301,5 +311,13 @@ public class ViewGame extends AppCompatActivity {
 
         }
 
+    }
+
+    public void openMaps(View v) {
+        Intent i = new Intent(ViewGame.this, MapsActivity.class);
+        i.putExtra("callingActivity", 1);
+
+        i.putExtra("location", coordinates);
+        startActivity(i);
     }
 }

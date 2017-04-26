@@ -31,6 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int PLACE_PICKER_REQUEST = 1;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
+    int callingActivity;
 
     boolean mapMarkers;
     LatLng markerPos;
@@ -60,6 +61,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapMarkers = false;
         markerPos = null;
 
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle.isEmpty()) {
+
+            finish();
+        }
+        else {
+            callingActivity = bundle.getInt("callingActivity");
+        }
+
     }
 
 
@@ -74,6 +85,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        if (callingActivity == 0) {
+            fromPostGame(googleMap);
+        }
+        else {
+            fromViewGame(googleMap);
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (callingActivity == 0) {
+            Intent i = new Intent();
+            i.putExtra("location", markerPos);
+            setResult(RESULT_OK, i);
+        }
+
+        super.onBackPressed();
+    }
+
+
+    public void fromPostGame(GoogleMap googleMap) {
         mMap = googleMap;
 
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -85,7 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerPos = curLocation;
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(curLocation));
-        mMap.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ) );
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -115,16 +148,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
-
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent i = new Intent();
-        i.putExtra("location", markerPos);
-        setResult(RESULT_OK, i);
+    public void fromViewGame(GoogleMap googleMap) {
+        Bundle bundle = getIntent().getExtras();
+        LatLng location = (LatLng) bundle.get("location");
 
-        super.onBackPressed();
+        mMap = googleMap;
+
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        markerPos = location;
+
+        mMap.addMarker(new MarkerOptions().position(location));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
+
     }
 
     @Override
@@ -144,7 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
 
-                Marker marker =mMap.addMarker(new MarkerOptions().position(location).title(place.getName().toString()));
+                Marker marker = mMap.addMarker(new MarkerOptions().position(location).title(place.getName().toString()));
                 markerPos = location;
 
                 SharedPreferences.Editor editor = sharedpreferences.edit();
