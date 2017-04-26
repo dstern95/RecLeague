@@ -55,11 +55,13 @@ public class FindGame extends AppCompatActivity{
     private String sport;
     private boolean load;
     private ArrayList<gameProfile> ml3;
+    double fardist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_game);
+        fardist = -1;
         gameArray[0] = "Loading...";
 
         sport = "All";
@@ -88,7 +90,9 @@ public class FindGame extends AppCompatActivity{
                 };
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
                 ml3 = tmp;
+                fardist=5;
                 changedbasesettings();
+
 
                 //gameArray = tmp.toArray(new String[tmp.size()]);
                 //GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
@@ -180,17 +184,25 @@ public class FindGame extends AppCompatActivity{
         LatLng curLatlng = new LatLng(Double.valueOf(lat), Double.valueOf(longitude));
         ArrayList<gameProfile> ml = masterlist;
         String[] gameArray2 = gameArray;
-        double dist = -1;
 
 
-        if(!sport.equals("All") && dist>0)
+        if(!sport.equals("All")||fardist>0)
         {
+            Log.d(TAG, "here");
             ml = new ArrayList<gameProfile>();
             for (int i =0; i<masterlist.size();i++)
             {
                 if (masterlist.get(i).getSport().equals(sport)||sport.equals("All"))
                 {
-                    if (distancecalc(masterlist.get(i).getLatLlng(), curLatlng)<= dist) {
+                    double d;
+                    if(masterlist.get(i).getLatLlng() != null) {
+                        d = distancecalc(masterlist.get(i).getLatLlng(), curLatlng);
+                    }
+                    else {
+                        d=238900;
+                        //im assuming if someone doesnt name a coordinate then the game is being played on the moon
+                    }
+                    if (d <= fardist||fardist ==-1) {
                         Log.d(TAG, masterlist.get(i).getSport());
                         ml.add(masterlist.get(i));
                     }
@@ -200,6 +212,17 @@ public class FindGame extends AppCompatActivity{
             for (int i = 0;i<ml.size();i++)
             {
                 String name = ml.get(i).getLocation();
+
+                if (ml.get(i).getLatLlng() != null) {
+                    double d = distancecalc(ml.get(i).getLatLlng(), curLatlng);
+                    name += "  " + Double.toString(d) + "Mi away  in ";
+                }
+                else
+                {
+                    name += "   ";
+                }
+
+
                 name += "    ";
                 name += ml.get(i).getDateTime().toString();
                 gameArray2[i] = name;
