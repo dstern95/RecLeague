@@ -54,6 +54,7 @@ public class FindGame extends AppCompatActivity{
     private int[] images = {R.drawable.sports, R.drawable.soccer, R.drawable.basketball, R.drawable.water_polo};
     private String sport;
     private boolean load;
+    private ArrayList<gameProfile> ml3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,49 +82,13 @@ public class FindGame extends AppCompatActivity{
 
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-                String lat = sharedpreferences.getString("latitude", "0");
-                String longitude = sharedpreferences.getString("longitude", "0");
-
-
-
-                LatLng curLatlng = new LatLng(Double.valueOf(lat), Double.valueOf(longitude));
-                Log.d(TAG,"current "+curLatlng.toString());
+                //Log.d(TAG,"current "+curLatlng.toString());
                 GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {
                 };
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
-                final ListView listView = (ListView) findViewById(R.id.game_view);
-
-                if (tmp != null) {
-                    load = true;
-                    gameHolder tmp2 = new gameHolder(tmp);
-                    tmp = (ArrayList<gameProfile>) tmp2;
-                    //this is surprisingly the most efficient solution of taking out the most recent dates
-
-                    listView.setVisibility(View.VISIBLE);
-                    gameArray = new String[tmp.size()];
-                    masterlist = tmp;
-                    //Log.d(TAG, Integer.toString(tmp.size()));
-
-                    for (int i = 0; i < tmp.size(); i++) {
-                        String name = tmp.get(i).getLocation();
-                        if (tmp.get(i).getLatLlng() != null) {
-                            double d = distancecalc(tmp.get(i).getLatLlng(), curLatlng);
-                            name += "  " + Double.toString(d) + "Mi away  in ";
-                        }
-                        else
-                        {
-                            name += "   ";
-                        }
-                        name += tmp.get(i).getDateTime().toString();
-                        gameArray[i] = name;
-                    }
-                    update();
-                } else {
-                    listView.setVisibility(View.INVISIBLE);
-                }
-
+                ml3 = tmp;
+                changedbasesettings();
 
                 //gameArray = tmp.toArray(new String[tmp.size()]);
                 //GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
@@ -160,19 +125,75 @@ public class FindGame extends AppCompatActivity{
         }
     }
 
+    public void changedbasesettings()
+    {
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        String lat = sharedpreferences.getString("latitude", "0");
+        String longitude = sharedpreferences.getString("longitude", "0");
+
+        LatLng curLatlng = new LatLng(Double.valueOf(lat), Double.valueOf(longitude));
+        ArrayList<gameProfile> tmp = ml3;
+        final ListView listView = (ListView) findViewById(R.id.game_view);
+
+        if (tmp != null) {
+            load = true;
+            gameHolder tmp2 = new gameHolder(tmp);
+            tmp = (ArrayList<gameProfile>) tmp2;
+            //this is surprisingly the most efficient solution of taking out the most recent dates
+
+            listView.setVisibility(View.VISIBLE);
+            gameArray = new String[tmp.size()];
+            masterlist = tmp;
+            //Log.d(TAG, Integer.toString(tmp.size()));
+
+            for (int i = 0; i < tmp.size(); i++) {
+                String name = tmp.get(i).getLocation();
+                if (tmp.get(i).getLatLlng() != null) {
+                    double d = distancecalc(tmp.get(i).getLatLlng(), curLatlng);
+                    name += "  " + Double.toString(d) + "Mi away  in ";
+                }
+                else
+                {
+                    name += "   ";
+                }
+                name += tmp.get(i).getDateTime().toString();
+                gameArray[i] = name;
+            }
+            update();
+        } else {
+            listView.setVisibility(View.INVISIBLE);
+        }
+
+
+
+    }
+
     public void update()
     {
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        String lat = sharedpreferences.getString("latitude", "0");
+        String longitude = sharedpreferences.getString("longitude", "0");
+
+        LatLng curLatlng = new LatLng(Double.valueOf(lat), Double.valueOf(longitude));
         ArrayList<gameProfile> ml = masterlist;
         String[] gameArray2 = gameArray;
-        if(!sport.equals("All"))
+        double dist = -1;
+
+
+        if(!sport.equals("All") && dist>0)
         {
             ml = new ArrayList<gameProfile>();
             for (int i =0; i<masterlist.size();i++)
             {
-                if (masterlist.get(i).getSport().equals(sport))
+                if (masterlist.get(i).getSport().equals(sport)||sport.equals("All"))
                 {
-                    Log.d(TAG,masterlist.get(i).getSport());
-                    ml.add(masterlist.get(i));
+                    if (distancecalc(masterlist.get(i).getLatLlng(), curLatlng)<= dist) {
+                        Log.d(TAG, masterlist.get(i).getSport());
+                        ml.add(masterlist.get(i));
+                    }
                 }
             }
             gameArray2 = new String[ml.size()];
