@@ -63,10 +63,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle.isEmpty()) {
+        if (bundle == null) {
 
             finish();
         }
+
         else {
             callingActivity = bundle.getInt("callingActivity");
         }

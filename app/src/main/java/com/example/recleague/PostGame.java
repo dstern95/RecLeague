@@ -456,6 +456,7 @@ public class PostGame extends AppCompatActivity {
 
     public void openMaps(View v) {
         Intent i = new Intent(PostGame.this, MapsActivity.class);
+        i.putExtra("callingActivity", 0);
         startActivityForResult(i, 2);
     }
 
