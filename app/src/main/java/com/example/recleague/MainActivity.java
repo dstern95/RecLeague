@@ -26,6 +26,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -132,10 +133,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         gameHolder games = new gameHolder();
         Date dt = new Date(2018,3,3,3,3);
         Date dt2 = new Date(2018,3,3,2,1);
-        gameProfile gm = new gameProfile("here","coding",5,"me",dt, "sdfjk");
+        LatLng a2 = new LatLng(0,0);
+        gameProfile gm = new gameProfile("here","coding",5,"me",dt, "sdfjk",a2.toString());
         games.insadd(gm);
 
-        gameProfile gm2 = new gameProfile("hell","idk",7,"me",dt2, "jadkd");
+        gameProfile gm2 = new gameProfile("hell","idk",7,"me",dt2, "jadkd",a2.toString());
         games.insadd(gm2);
 
         ArrayList<gameProfile> a = new ArrayList<gameProfile>();

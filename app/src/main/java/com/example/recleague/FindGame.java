@@ -1,6 +1,8 @@
 package com.example.recleague;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.nfc.Tag;
@@ -24,6 +26,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +34,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +46,9 @@ public class FindGame extends AppCompatActivity{
 
     String[] gameArray = new String[1];
     ArrayList<gameProfile> masterlist;
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences sharedpreferences;
 
     private String[] sports = {"All", "Soccer", "Basketball", "Water Polo"};
     private int[] images = {R.drawable.sports, R.drawable.soccer, R.drawable.basketball, R.drawable.water_polo};
@@ -73,6 +81,15 @@ public class FindGame extends AppCompatActivity{
 
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+                String lat = sharedpreferences.getString("latitude", "0");
+                String longitude = sharedpreferences.getString("longitude", "0");
+
+
+
+                LatLng curLatlng = new LatLng(Double.valueOf(lat), Double.valueOf(longitude));
+                Log.d(TAG,"current "+curLatlng.toString());
                 GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {
                 };
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
@@ -91,7 +108,14 @@ public class FindGame extends AppCompatActivity{
 
                     for (int i = 0; i < tmp.size(); i++) {
                         String name = tmp.get(i).getLocation();
-                        name += "    ";
+                        if (tmp.get(i).getLatLlng() != null) {
+                            double d = distancecalc(tmp.get(i).getLatLlng(), curLatlng);
+                            name += "  " + Double.toString(d) + "Mi away  in ";
+                        }
+                        else
+                        {
+                            name += "   ";
+                        }
                         name += tmp.get(i).getDateTime().toString();
                         gameArray[i] = name;
                     }
@@ -184,6 +208,52 @@ public class FindGame extends AppCompatActivity{
             }
         });
 
+    }
+
+    public Double distancecalc(LatLng coord, LatLng cur)
+    {
+
+        double R = 6372.8;
+        double lat1 = coord.latitude;
+        double lon1 = coord.longitude;
+        double lat2 = cur.latitude;
+        double lon2 = cur.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+
+        double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double dist=R * c *0.62137119;
+        BigDecimal bd = new BigDecimal(dist);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+        dist = bd.doubleValue();
+        return dist;
+
+
+
+
+
+
+        /*
+        Log.d(TAG, cur.toString());
+        int earthradius = 6371;
+        double newLat = Math.toRadians(coord.latitude-cur.latitude);
+        double newLong = Math.toRadians(coord.longitude-cur.longitude);
+        double tmp = Math.sin(newLat/2)* Math.sin(newLong/2) +
+                Math.cos(Math.toRadians(coord.latitude)*Math.toRadians(cur.latitude)*Math.sin(newLong/2)*Math.sin(newLong/2));
+
+
+        double c = 2*Math.atan2(Math.sqrt(tmp),Math.sqrt(1-tmp));
+        Log.d(TAG, Double.toString(tmp));
+        double distancekm = earthradius * c;
+        distancekm = Math.pow(distancekm,2);
+        distancekm = Math.sqrt(distancekm);
+        Log.d(TAG, Double.toString(distancekm));
+*/
+        //return (0.62137119*distancekm);
     }
 
     public void postGame(View v) {

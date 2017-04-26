@@ -2,6 +2,8 @@ package com.example.recleague;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -17,13 +19,15 @@ public class gameProfile {
     public ArrayList<String> going;
     public ArrayList<String> goingid;
     public String id;
+    public String coordinates;
     private final String TAG = "gameProfile";
+
 
     public gameProfile()
     {
         //needed for firebase
     }
-    public gameProfile(String loc, String sport, int limit, String owner, Date dateTime,String ownerid)
+    public gameProfile(String loc, String sport, int limit, String owner, Date dateTime,String ownerid, String coord)
     {
 
         location = loc;
@@ -35,6 +39,7 @@ public class gameProfile {
         going = new ArrayList<String>();
         goingid = new ArrayList<String>();
 
+        coordinates = coord;
         goingid.add(ownerid);
         going.add(owner);
         id = "";
@@ -125,6 +130,26 @@ public class gameProfile {
         return goingid;
     }
 
+    public LatLng getLatLlng()
+    {
+        if (coordinates != null) {
+            String loc = coordinates;
+            loc = loc.replace("lat/lng: (", "");
+            loc = loc.replace(")", "");
+            loc = loc.replace(" ", "");
+            String[] tmp = loc.split(",");
+            //Log.d(TAG, tmp[0])
+            return new LatLng(Double.valueOf(tmp[0]), Double.valueOf(tmp[1]));
+        }
+        LatLng tmp =null;
+        return tmp;
+
+    }
+
+    public String getCoordinates()
+    {
+    return coordinates;
+    }
     public String getId(){return id;}
     public ArrayList<String> getGoing(){
         return going;

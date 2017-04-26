@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
@@ -34,6 +35,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     boolean mapMarkers;
     LatLng markerPos;
     private GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions().position(latLng));
                 markerPos = latLng;
 
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("loc", latLng.toString());
+                editor.apply();
+
+
             }
         });
 
@@ -131,12 +138,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Place place = PlacePicker.getPlace(data, this);
                 LatLng location = place.getLatLng();
 
+
                 if (!mapMarkers) {
                     mMap.clear();
                 }
 
-                mMap.addMarker(new MarkerOptions().position(location).title(place.getName().toString()));
+
+                Marker marker =mMap.addMarker(new MarkerOptions().position(location).title(place.getName().toString()));
                 markerPos = location;
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("loc", location.toString());
+                editor.putString("locname",marker.getTitle());
+                editor.apply();
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
                 mMap.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ) );

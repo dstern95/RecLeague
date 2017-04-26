@@ -61,6 +61,8 @@ public class PostGame extends AppCompatActivity {
     public int dy;
     public int mth;
 
+    public LatLng coordinates;
+
     public boolean timeSet;
     public boolean dateSet;
 
@@ -164,6 +166,35 @@ public class PostGame extends AppCompatActivity {
         spin.setAdapter(customAdapter);
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String loc = sharedpreferences.getString("loc",null);
+        if (loc != null)
+        {
+            String locname = sharedpreferences.getString("locname",null);
+
+            EditText etl = (EditText)findViewById(R.id.location_text);
+            etl.setText(locname);
+            loc = loc.replace("lat/lng: (","");
+            loc = loc.replace(")","");
+            loc = loc.replace(" ","");
+            String[] tmp = loc.split(",");
+            //Log.d(TAG, tmp[0])
+            coordinates = new LatLng(Double.valueOf(tmp[0]),Double.valueOf(tmp[1]));
+
+
+            //LatLng a = new LatLng(Double.valueOf(sharedpreferences.getString("loclat",null)),Double.valueOf(sharedpreferences.getString("loclong",null)));
+        }
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("loc", null);
+        editor.putString("locname",null);
+
+        editor.apply();
+    }
+
     public void create(View v)
     {
         boolean dateTimeSet = false;
@@ -199,7 +230,17 @@ public class PostGame extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
         else {
-            gameProfile tmp = new gameProfile(location, sport, playerLimit, user, dateTime, curUser.getUserid());
+            String coordstring;
+            if (coordinates != null)
+            {
+                coordstring =coordinates.toString();
+            }
+            else
+            {
+                coordstring = null;
+            }
+            gameProfile tmp = new gameProfile(location, sport, playerLimit, user, dateTime, curUser.getUserid(),
+                    coordstring);
 
             //ArrayList<gameProfile> games = new ArrayList<gameProfile>();
             games.insadd(tmp);
