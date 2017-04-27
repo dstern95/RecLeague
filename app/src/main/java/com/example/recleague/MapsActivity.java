@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -70,6 +72,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         else {
             callingActivity = bundle.getInt("callingActivity");
+        }
+
+        if (callingActivity == 1) {
+            Button placeBtn = (Button) findViewById(R.id.open_places);
+            placeBtn.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -140,15 +147,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
-        try {
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        }
     }
 
     public void fromViewGame(GoogleMap googleMap) {
@@ -198,6 +196,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
             }
+        }
+    }
+
+    public void openPlaces(View v) {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
         }
     }
 }

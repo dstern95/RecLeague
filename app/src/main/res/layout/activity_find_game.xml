@@ -36,11 +36,32 @@
 
         android:background="@color/background">
 
-
     </Spinner>
 
-    <ListView android:id="@+id/game_view"
+    <TextView android:id="@+id/text_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/distance"
+        android:layout_toStartOf="@id/distance"
+        android:layout_below="@id/sports"
+
+        android:text="@string/default_distance"
+        android:textSize="15sp"/>
+
+    <SeekBar android:id="@+id/distance"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/sports"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp" />
+
+    <ListView android:id="@+id/game_view"
+        android:layout_below="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="400dp"
 

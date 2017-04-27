@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -110,6 +111,12 @@ public class FindGame extends AppCompatActivity{
         });
 
         update();
+
+        SeekBar distance = (SeekBar) findViewById(R.id.distance);
+
+        /*distance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+        });*/
 
     }
 
