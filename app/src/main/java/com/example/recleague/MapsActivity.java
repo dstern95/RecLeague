@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
+    private final String TAG = "maps";
 
     private GoogleMap mMap;
     SharedPreferences sharedpreferences;
@@ -125,8 +127,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng curLocation = new LatLng(Double.valueOf(lat), Double.valueOf(longitude));
         markerPos = curLocation;
 
+
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(curLocation));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(curLocation));
+        //for some reason it is buggy on some phones unless this is done twice
+
+
+
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -158,11 +167,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         markerPos = location;
+        Log.d(TAG, location.toString());
 
-        mMap.addMarker(new MarkerOptions().position(location));
+        Marker m =mMap.addMarker(new MarkerOptions().position(location));
+
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
+        Log.d(TAG, location.toString());
+
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+        //for some reason it is buggy on some phones unless this is done twice
+
+        Log.d(TAG, location.toString());
+        Log.d(TAG,mMap.getCameraPosition().toString());
+
+
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(m.getPosition()));
+        //mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+        //mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
+
+
 
     }
 
