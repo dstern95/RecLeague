@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         final FirebaseUser user2 = mAuth.getCurrentUser();
 
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("user", user2.getDisplayName());
+        if (user2 != null) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("user", user2.getDisplayName());
 
-        editor.apply();
+            editor.apply();
+        }
 
         // Request the permission be turned on
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);

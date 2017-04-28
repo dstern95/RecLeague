@@ -29,6 +29,8 @@ import java.util.ArrayList;
 
 public class ViewGame extends AppCompatActivity {
 
+
+
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
     String user;
@@ -59,6 +61,18 @@ public class ViewGame extends AppCompatActivity {
 
         user = sharedpreferences.getString("user",null);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+
+        Spinner s = (Spinner)findViewById(R.id.signeup);
+
+        signedup = new String[1];
+        signedup[0] = "None";
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, signedup);
+
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        s.setAdapter(spinnerArrayAdapter);
+        s.setOnItemSelectedListener(new ViewGame.playersListener());
+
 
         final FirebaseUser user2 = mAuth.getCurrentUser();
 
@@ -135,16 +149,11 @@ public class ViewGame extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+
+
         Spinner s = (Spinner)findViewById(R.id.signeup);
 
-        signedup = new String[1];
-        signedup[0] = "None";
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, signedup);
-
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        s.setAdapter(spinnerArrayAdapter);
-        s.setOnItemSelectedListener(new ViewGame.playersListener());
-
+        s.setSelection(0);
 
 
     }

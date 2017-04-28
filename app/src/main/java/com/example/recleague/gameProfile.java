@@ -27,6 +27,7 @@ public class gameProfile {
     {
         //needed for firebase
     }
+
     public gameProfile(String loc, String sport, int limit, String owner, Date dateTime,String ownerid, String coord)
     {
 
