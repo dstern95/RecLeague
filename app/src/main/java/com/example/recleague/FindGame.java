@@ -44,7 +44,6 @@ import java.util.List;
 
 public class FindGame extends AppCompatActivity{
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COURSE_LOCATION = 1;
-    private final String TAG = "findgame";
 
     String[] gameArray = new String[1];
     ArrayList<gameProfile> masterlist;
@@ -80,34 +79,20 @@ public class FindGame extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                //GenericTypeIndicator<Date> t = new GenericTypeIndicator<Date>() {};
-                //Date tmp = dataSnapshot.getValue(t);
-                //gameHolder tmp = dataSnapshot.getValue(gameHolder.class);
 
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-
-                //Log.d(TAG,"current "+curLatlng.toString());
                 GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {
                 };
                 ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
                 ml3 = tmp;
-                fardist=5;
+                //fardist=5;
                 changedbasesettings();
 
 
-                //gameArray = tmp.toArray(new String[tmp.size()]);
-                //GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
-                //List<String> value = dataSnapshot.getValue(t);
-                //gameArray = value.toArray(new String[value.size()]);
-
-                //Log.d(TAG, "Value is: " + value);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                //Log.w(TAG, "Failed to read value.", error.toException());
+
             }
         });
 
@@ -176,6 +161,7 @@ public class FindGame extends AppCompatActivity{
 
     public void changedbasesettings()
     {
+        //handles updates to the list
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
@@ -230,9 +216,9 @@ public class FindGame extends AppCompatActivity{
         ArrayList<gameProfile> ml = masterlist;
         String[] gameArray2 = gameArray;
 
+        //handles selective cases without messing up the original list
         if (masterlist!=null) {
             if (!sport.equals("All") || fardist > 0) {
-                Log.d(TAG, "here");
                 ml = new ArrayList<gameProfile>();
                 for (int i = 0; i < masterlist.size(); i++) {
                     if (masterlist.get(i).getSport().equals(sport) || sport.equals("All")) {
@@ -244,7 +230,6 @@ public class FindGame extends AppCompatActivity{
                             //im assuming if someone doesnt name a coordinate then the game is being played on the moon
                         }
                         if (d <= fardist || fardist == -1) {
-                            Log.d(TAG, masterlist.get(i).getSport());
                             ml.add(masterlist.get(i));
                         }
                     }
@@ -295,6 +280,7 @@ public class FindGame extends AppCompatActivity{
     public Double distancecalc(LatLng coord, LatLng cur)
     {
 
+        //uses haversine method to calculate distance between locations
         double R = 6372.8;
         double lat1 = coord.latitude;
         double lon1 = coord.longitude;
@@ -319,23 +305,7 @@ public class FindGame extends AppCompatActivity{
 
 
 
-        /*
-        Log.d(TAG, cur.toString());
-        int earthradius = 6371;
-        double newLat = Math.toRadians(coord.latitude-cur.latitude);
-        double newLong = Math.toRadians(coord.longitude-cur.longitude);
-        double tmp = Math.sin(newLat/2)* Math.sin(newLong/2) +
-                Math.cos(Math.toRadians(coord.latitude)*Math.toRadians(cur.latitude)*Math.sin(newLong/2)*Math.sin(newLong/2));
 
-
-        double c = 2*Math.atan2(Math.sqrt(tmp),Math.sqrt(1-tmp));
-        Log.d(TAG, Double.toString(tmp));
-        double distancekm = earthradius * c;
-        distancekm = Math.pow(distancekm,2);
-        distancekm = Math.sqrt(distancekm);
-        Log.d(TAG, Double.toString(distancekm));
-*/
-        //return (0.62137119*distancekm);
     }
 
     public void postGame(View v) {

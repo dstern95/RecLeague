@@ -13,7 +13,6 @@ import java.util.List;
 
 public class gameHolder extends ArrayList<gameProfile>{
 
-    private final String TAG = "gameHolder2";
 
     public gameHolder(){
 
@@ -24,11 +23,11 @@ public class gameHolder extends ArrayList<gameProfile>{
     {
         super();
 
+        //gets rid of any expired games
         Calendar c = Calendar.getInstance();
         Date current = c.getTime();
         for(int i=0; i<tmp.size();i++)
         {
-            //Log.d(TAG, current.toString() +" found a match "+tmp.get(i).getDateTime().toString());
 
             if (tmp.get(i).getDateTime().after(current)) {
                 this.add(tmp.get(i));
@@ -39,14 +38,14 @@ public class gameHolder extends ArrayList<gameProfile>{
 
     public gameProfile findbyId(String id)
     {
+
+        //finds a gameprofile and returns it
         for (int i=0; i<this.size();i++)
         {
 
-            //Log.d(TAG, "found a match  ");
 
             if (this.get(i).isId(id))
             {
-                //Log.d(TAG, "foud "+this.get(i).getId()+" vs "+id);
 
 
                 return this.get(i);
@@ -80,6 +79,7 @@ public class gameHolder extends ArrayList<gameProfile>{
     public boolean insadd(gameProfile newprof)
     {
 
+            //implements add to use insertion sort
             int i = 0;
             while (i < this.size()) {
                     if (this.get(i).getDateTime().after(newprof.getDateTime())) {

@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
-    private final String TAG = "maps";
 
     private GoogleMap mMap;
     SharedPreferences sharedpreferences;
@@ -167,25 +166,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         markerPos = location;
-        Log.d(TAG, location.toString());
 
         Marker m =mMap.addMarker(new MarkerOptions().position(location));
 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-        Log.d(TAG, location.toString());
 
         mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         //for some reason it is buggy on some phones unless this is done twice
 
-        Log.d(TAG, location.toString());
-        Log.d(TAG,mMap.getCameraPosition().toString());
 
-
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(m.getPosition()));
-        //mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
-        //mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
 
 
 
@@ -218,7 +209,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-                Log.d(TAG, location.toString());
 
                 mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(location));

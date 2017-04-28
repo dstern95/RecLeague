@@ -43,7 +43,6 @@ import java.util.ListIterator;
 import java.util.Map;
 
 public class PostGame extends AppCompatActivity {
-    private final static String TAG = PostGame.class.getName();
 
     private String[] sports = {"Soccer", "Basketball", "Water Polo"};
     private int[] images = {R.drawable.soccer, R.drawable.basketball, R.drawable.water_polo};
@@ -78,8 +77,7 @@ public class PostGame extends AppCompatActivity {
 
     userProfile curUser;
 
-    //Runnable r = new MyRunnable();
-    //Thread t;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,27 +98,12 @@ public class PostGame extends AppCompatActivity {
 
 
         user = sharedpreferences.getString("user",null);
-        //user = user.replace(".", "~");
 
-
-
-        //GenericTypeIndicator<List<String>> games = new GenericTypeIndicator<List<String>>() {};
-        //List games  =  new List();
-
-        /*
-        ArrayList<gameProfile> games = new ArrayList<gameProfile>();
-
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("game");
-
-        myRef.setValue(games);
-
-        */
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         final FirebaseUser user2 = mAuth.getCurrentUser();
 
+        //gets the user data
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef2 = database.getReference(user2.getUid());
         myRef2.addValueEventListener(new ValueEventListener() {
@@ -141,7 +124,7 @@ public class PostGame extends AppCompatActivity {
             }
         });
 
-
+        //gets the game holder data so games can be added
         DatabaseReference myRef = database.getReference("game");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -157,7 +140,6 @@ public class PostGame extends AppCompatActivity {
                 {
                     games = new gameHolder();
                 }
-                fbase = true;
 
             }
 
@@ -191,11 +173,9 @@ public class PostGame extends AppCompatActivity {
             loc = loc.replace(")","");
             loc = loc.replace(" ","");
             String[] tmp = loc.split(",");
-            //Log.d(TAG, tmp[0])
             coordinates = new LatLng(Double.valueOf(tmp[0]),Double.valueOf(tmp[1]));
 
 
-            //LatLng a = new LatLng(Double.valueOf(sharedpreferences.getString("loclat",null)),Double.valueOf(sharedpreferences.getString("loclong",null)));
         }
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("loc", null);
@@ -206,6 +186,8 @@ public class PostGame extends AppCompatActivity {
 
     public void create(View v)
     {
+
+        //creates a new game and adds it to firebase
         boolean dateTimeSet = false;
         boolean playerLimitSet = false;
         boolean locationSet = false;
@@ -221,7 +203,6 @@ public class PostGame extends AppCompatActivity {
 
         EditText lim = (EditText)findViewById(R.id.lim_text);
         String limitStr = lim.getText().toString();
-        Log.d(TAG, "Look here "+ location);
 
         if (!limitStr.equals("")) {
             playerLimit = Integer.valueOf(limitStr);
@@ -279,8 +260,6 @@ public class PostGame extends AppCompatActivity {
             tmpholder = tmp.getId();
 
             finish();
-            //t = new Thread(r, "record");
-            //t.start();
 
 
 
@@ -307,7 +286,6 @@ public class PostGame extends AppCompatActivity {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
 
-        //Log.d(TAG, newFragment.getHr());
 
     }
 
@@ -418,27 +396,22 @@ public class PostGame extends AppCompatActivity {
 
     public void setHour(int hour) {
         hr = hour;
-        Log.d(TAG, "hour: " + hour);
     }
 
     public void setMinute(int minute) {
         min = minute;
-        Log.d(TAG, "minute: " + minute);
     }
 
     public void setYear(int year) {
         yr = year;
-        Log.d(TAG, "year: " + year);
 ;    }
 
     public void setMonth(int month) {
         mth = month;
-        Log.d(TAG, "month: " + month);
     }
 
     public void setDay(int day) {
         dy = day;
-        Log.d(TAG, "day: " + day);
     }
 
     public void updateDate() {
@@ -483,10 +456,10 @@ public class PostGame extends AppCompatActivity {
         i.putExtra("callingActivity", 0);
         startActivityForResult(i, 2);
     }
-
+/*
     boolean fbase;
 
-    /*
+
     class MyRunnable implements Runnable {
 
 
@@ -572,22 +545,6 @@ public class PostGame extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        /*if (requestCode == 2) {
-            if (resultCode == RESULT_OK) {
-                Intent i = getIntent();
-                Bundle extras = i.getExtras();
-
-                if (!extras.isEmpty()) {
-                    LatLng location = (LatLng) extras.get("location");
-
-                }
-            }
-        }*/
-    }
 
 
 }

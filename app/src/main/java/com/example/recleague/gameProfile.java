@@ -20,7 +20,6 @@ public class gameProfile {
     public ArrayList<String> goingid;
     public String id;
     public String coordinates;
-    private final String TAG = "gameProfile";
 
 
     public gameProfile()
@@ -30,6 +29,7 @@ public class gameProfile {
 
     public gameProfile(String loc, String sport, int limit, String owner, Date dateTime,String ownerid, String coord)
     {
+
 
         location = loc;
         this.sport = sport;
@@ -46,6 +46,7 @@ public class gameProfile {
         id = "";
         Random r = new Random();
 
+        //creates an id to identify the class
         for (int i=0; i<21; i++)
         {
             int n = r.nextInt(74)+48;
@@ -55,6 +56,7 @@ public class gameProfile {
     }
     public void addPlayer(String name,String uid)
     {
+        //adds a new user to game
         if (going == null)
         {
             going = new ArrayList<String>();
@@ -84,14 +86,11 @@ public class gameProfile {
 
     public boolean isGoing(String name)
     {
-        //name = name.replace(".", "~");
         for(int i =0;i<going.size();i++)
         {
-            Log.d(TAG, "is looking  "+going.get(i)+" vs "+name);
 
             if (name.equals(going.get(i)))
             {
-                Log.d(TAG, "is going  ");
 
                 return true;
             }
@@ -101,14 +100,11 @@ public class gameProfile {
 
     public boolean isGoingid(String uid)
     {
-        //name = name.replace(".", "~");
         for(int i =0;i<goingid.size();i++)
         {
-            Log.d(TAG, "is looking  "+going.get(i)+" vs "+uid);
 
             if (uid.equals(goingid.get(i)))
             {
-                Log.d(TAG, "is going  ");
 
                 return true;
             }

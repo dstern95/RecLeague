@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver
 {
@@ -18,6 +19,9 @@ public class AlarmReceiver extends BroadcastReceiver
         // Your code to execute when the alarm triggers
         // and the broadcast is received.
 
+        Toast.makeText(context, "I'm running", Toast.LENGTH_SHORT).show();
+
+        /*
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         //.setSmallIcon(R.drawable.notification_icon)
@@ -45,6 +49,8 @@ public class AlarmReceiver extends BroadcastReceiver
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.
         mNotificationManager.notify(mId, mBuilder.build());
+
+        */
 
     }
 }

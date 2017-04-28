@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             requestPerm();
         }
 
+        //gets user data
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(user2.getUid());
         myRef.addValueEventListener(new ValueEventListener() {
@@ -126,35 +127,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
 
-/*
-        String intrmessage = "hello ";
-        intrmessage += curUser.getUsername();
-        intrmessage += " welcome to RecLeague";
-        tv.setText(intrmessage);
-*/
-        gameHolder games = new gameHolder();
-        Date dt = new Date(2018,3,3,3,3);
-        Date dt2 = new Date(2018,3,3,2,1);
-        LatLng a2 = new LatLng(0,0);
-        gameProfile gm = new gameProfile("here","coding",5,"me",dt, "sdfjk",a2.toString());
-        games.insadd(gm);
 
-        gameProfile gm2 = new gameProfile("hell","idk",7,"me",dt2, "jadkd",a2.toString());
-        games.insadd(gm2);
-
-        ArrayList<gameProfile> a = new ArrayList<gameProfile>();
-        //a.add(gm);
-        //a.add(gm2);
-
-
-
-        //FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-        //DatabaseReference myRef3 = database2.getReference("game");
-        //gameHolder games2 = new gameHolder(a);
-
-
-        //myRef3.setValue(games);
-        //user = user.replace(".", "@");
 
         // Create an instance of GoogleAPIClient.
         if (mGoogleApiClient == null) {
@@ -195,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
     public void newUser(FirebaseUser user2)
     {
+        //creates a new user
         curUser = new userProfile(user2.getDisplayName(),user2.getUid());
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -264,8 +238,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             editor.putString("longitude", mLongitudeText);
             editor.apply();
 
-            Log.d(TAG, "Latitude: " + mLatitudeText);
-            Log.d(TAG, "Longitude: " + mLongitudeText);
+
         }
 
     }

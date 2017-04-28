@@ -48,7 +48,6 @@ import static android.R.attr.name;
 
 public class ViewUserProfile extends AppCompatActivity {
 
-    private final String TAG = "viewgame";
     private int PICK_IMAGE_REQUEST = 1;
 
     boolean isUser;
@@ -70,9 +69,7 @@ public class ViewUserProfile extends AppCompatActivity {
         isUser = false;
         changepic = false;
 
-        Log.d(TAG, viewid);
-        //EditText evn =(EditText)findViewById(R.id.ev_nickname);
-        //evn.setText("change");
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference vdata = database.getReference(viewid);
@@ -106,7 +103,6 @@ public class ViewUserProfile extends AppCompatActivity {
 
             @Override
             public boolean onLongClick(View v) {
-                Log.d(TAG, "here");
                 if (isUser) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ViewUserProfile.this);
                     builder.setMessage("Are you sure you want to remove the image?")
@@ -290,7 +286,6 @@ public class ViewUserProfile extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(viewid);
         myRef.setValue(curProfile);
-        Log.d(TAG, Boolean.toString(isUser));
 
 
         super.onPause();
@@ -350,7 +345,6 @@ public class ViewUserProfile extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Log.d(TAG, downloadUrl.toString());
                 curProfile.setPicid(downloadUrl.toString());
             }
         });
