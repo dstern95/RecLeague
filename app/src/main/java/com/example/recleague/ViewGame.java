@@ -1,5 +1,7 @@
 package com.example.recleague;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,11 +28,10 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ViewGame extends AppCompatActivity {
-
-
-
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
     String user;
@@ -134,6 +135,7 @@ public class ViewGame extends AppCompatActivity {
             Log.d(TAG, "Look here "+ curUser.getUsername());
 
             curUser.addGame(selgame.getId());
+            scheduleAlarm();
             submit();
         }
         else if (decision == 2)
@@ -328,5 +330,26 @@ public class ViewGame extends AppCompatActivity {
 
         i.putExtra("location", coordinates);
         startActivity(i);
+    }
+
+    public void scheduleAlarm()
+    {
+        Date dateTime = selgame.getDateTime();
+        Long scheduleTime = dateTime.getTime();
+
+        Long timeNow = System.currentTimeMillis();
+
+        Long time = scheduleTime - timeNow;
+
+        // Create an Intent and set the class that will execute when the Alarm triggers. Here we have
+        // specified AlarmReceiver in the Intent. The onReceive() method of this class will execute when the broadcast from your alarm is received.
+        Intent intentAlarm = new Intent(this, AlarmReceiver.class);
+        intentAlarm.putExtra("gameID", selgame.getId());
+
+        // Get the Alarm Service.
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        // Set the alarm for a particular time.
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(this, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 }

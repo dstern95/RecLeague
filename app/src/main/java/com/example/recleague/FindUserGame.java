@@ -1,6 +1,10 @@
 package com.example.recleague;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +23,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class FindUserGame extends AppCompatActivity {
 
@@ -26,6 +31,9 @@ public class FindUserGame extends AppCompatActivity {
     ArrayList<gameProfile> masterlist;
     public String[] gameArray;
     public boolean load;
+
+    PendingIntent pendingIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +98,6 @@ public class FindUserGame extends AppCompatActivity {
                 //Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
     }
 
     public void update()
