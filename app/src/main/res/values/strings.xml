@@ -46,4 +46,5 @@
     <string name="get_from_maps">Get from Maps</string>
     <string name="find_in_maps">Find in Maps</string>
     <string name="default_distance">1 mile</string>
+    <string name="max_distance">Any Distance</string>
 </resources>

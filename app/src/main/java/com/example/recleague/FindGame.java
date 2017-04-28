@@ -1,5 +1,6 @@
 package com.example.recleague;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -113,9 +114,30 @@ public class FindGame extends AppCompatActivity{
         update();
 
         SeekBar distance = (SeekBar) findViewById(R.id.distance);
+        distance.setMax(101);
+        final TextView currentDistance = (TextView) findViewById(R.id.text_distance);
 
         distance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @SuppressLint("SetTextI18n")
             public void onProgressChanged(SeekBar distance, int progress, boolean fromUser) {
+                if (progress == 0) {
+                    distance.setProgress(1);
+                    return;
+                }
+
+                if (progress == 101) {
+                    String text = "Any Distance";
+                    currentDistance.setText(text);
+                }
+
+                else if (progress == 1) {
+                    String text = "1 mile";
+                    currentDistance.setText(text);
+                }
+
+                else {
+                    currentDistance.setText(Integer.toString(progress) + " miles");
+                }
 
             }
 
@@ -124,7 +146,7 @@ public class FindGame extends AppCompatActivity{
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
-                
+
             }
 
         });
