@@ -169,7 +169,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void newUser(FirebaseUser user2)
     {
         //creates a new user
-        curUser = new userProfile(user2.getDisplayName(),user2.getUid());
+        if (user2.getDisplayName()!=null) {
+            curUser = new userProfile(user2.getDisplayName(), user2.getUid());
+        }
+        else
+        {
+            curUser = new userProfile(user2.getEmail(), user2.getUid());
+
+        }
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(user2.getUid());

@@ -1,7 +1,6 @@
 package com.example.recleague;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -137,13 +135,19 @@ public class ViewGame extends AppCompatActivity {
             Log.d(TAG, "Look here "+ curUser.getUsername());
 
             curUser.addGame(selgame.getId());
-            scheduleAlarm(getNotification(selgame.getSport() + "at" + selgame.getLocation()));
+            scheduleAlarm();
             submit();
         }
         else if (decision == 2)
         {
             selgame.removePlayer(user);
             curUser.removeGame(selgame.getId());
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            Intent myIntent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,selgame.getId().hashCode(), myIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent.cancel();
+            alarmManager.cancel(pendingIntent);
 
             submit();
         }
@@ -334,7 +338,7 @@ public class ViewGame extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void scheduleAlarm(Notification notification)
+    public void scheduleAlarm()
     {
         Date dateTime = selgame.getDateTime();
         Long scheduleTime = dateTime.getTime();
@@ -348,10 +352,7 @@ public class ViewGame extends AppCompatActivity {
         //Intent intentAlarm = new Intent(this, AlarmReceiver.class);
         //intentAlarm.putExtra("gameID", selgame.getId());
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        alarmIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, 1);
-        alarmIntent.putExtra(AlarmReceiver.NOTIFICATION, notification);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, selgame.getId().hashCode(), alarmIntent, 0);
 
 
 
@@ -359,20 +360,7 @@ public class ViewGame extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         // Set the alarm for a particular time.
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,20000,pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+7000,pendingIntent);
         //alarmManager.set(AlarmManager.RTC_WAKEUP, 2000, PendingIntent.getBroadcast(this, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
-    }
-
-    private Notification getNotification(String content) {
-        Intent intent = new Intent(this, ViewGame.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
-
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("You have a new game coming up!");
-        builder.setContentText(content);
-        builder.setSmallIcon(R.drawable.ic_new_game);
-        builder.setContentIntent(pendingIntent);
-        return builder.build();
     }
 }

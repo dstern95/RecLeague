@@ -22,13 +22,11 @@ public class gameProfile {
     public String coordinates;
 
 
-    public gameProfile()
-    {
+    public gameProfile() {
         //needed for firebase
     }
 
-    public gameProfile(String loc, String sport, int limit, String owner, Date dateTime,String ownerid, String coord)
-    {
+    public gameProfile(String loc, String sport, int limit, String owner, Date dateTime, String ownerid, String coord) {
 
 
         location = loc;
@@ -47,54 +45,49 @@ public class gameProfile {
         Random r = new Random();
 
         //creates an id to identify the class
-        for (int i=0; i<21; i++)
-        {
-            int n = r.nextInt(74)+48;
-            id+=Character.toString((char) n);
+        for (int i = 0; i < 21; i++) {
+            int n = r.nextInt(74) + 48;
+            id += Character.toString((char) n);
         }
 
     }
-    public void addPlayer(String name,String uid)
-    {
+
+    public void addPlayer(String name, String uid) {
         //adds a new user to game
-        if (going == null)
-        {
+        if (going == null) {
             going = new ArrayList<String>();
         }
 
-        if (goingid == null)
-        {
+        if (goingid == null) {
             goingid = new ArrayList<String>();
         }
 
         going.add(name);
         goingid.add(uid);
-        currentPlayers +=1;
+        currentPlayers += 1;
 
     }
-    public void removePlayer(String name)
-    {
+
+    public void removePlayer(String name) {
         going.remove(name);
-        currentPlayers-=1;
+        currentPlayers -= 1;
 
     }
-    public void setCurrentPlayers(int tmp)
-    {
+
+    public void setCurrentPlayers(int tmp) {
         currentPlayers = tmp;
 
     }
 
-    public boolean isGoing(String name)
-    {
-        for(int i =0;i<going.size();i++)
-        {
+    public boolean isGoing(String name) {
+        for (int i = 0; i < going.size(); i++) {
 
-            if (name.equals(going.get(i)))
-            {
+            if (name.equals(going.get(i))) {
 
                 return true;
             }
         }
+
         return false;
     }
 
