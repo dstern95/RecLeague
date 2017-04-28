@@ -343,13 +343,18 @@ public class ViewGame extends AppCompatActivity {
 
         // Create an Intent and set the class that will execute when the Alarm triggers. Here we have
         // specified AlarmReceiver in the Intent. The onReceive() method of this class will execute when the broadcast from your alarm is received.
-        Intent intentAlarm = new Intent(this, AlarmReceiver.class);
-        intentAlarm.putExtra("gameID", selgame.getId());
+        //Intent intentAlarm = new Intent(this, AlarmReceiver.class);
+        //intentAlarm.putExtra("gameID", selgame.getId());
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+
+
 
         // Get the Alarm Service.
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         // Set the alarm for a particular time.
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(this, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+        alarmManager.set(AlarmManager.RTC_WAKEUP,5000,pendingIntent);
+        //alarmManager.set(AlarmManager.RTC_WAKEUP, 2000, PendingIntent.getBroadcast(this, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 }
