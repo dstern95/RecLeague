@@ -6,10 +6,6 @@ import java.util.ArrayList;
 
 import static com.facebook.GraphRequest.TAG;
 
-/**
- * Created by davidstern on 4/18/17.
- */
-
 public class userProfile {
 
     private String nickname;

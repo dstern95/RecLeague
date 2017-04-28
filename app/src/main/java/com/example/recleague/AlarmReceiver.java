@@ -1,5 +1,6 @@
 package com.example.recleague;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 public class AlarmReceiver extends BroadcastReceiver
 {
     private final String TAG = "alarm";
+    public static String NOTIFICATION_ID = "notification-id";
+    public static String NOTIFICATION = "notification";
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -26,36 +29,12 @@ public class AlarmReceiver extends BroadcastReceiver
         Log.d(TAG, "it worked");
         Toast.makeText(context, "I'm running", Toast.LENGTH_LONG).show();
 
-        /*
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        //.setSmallIcon(R.drawable.notification_icon)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
-        // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(AlarmReceiver, ViewUserProfile.class);
 
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(AlarmReceiver.this);
-        // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(ViewUserProfile.class);
-        // Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
-        mNotificationManager.notify(mId, mBuilder.build());
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        */
+        Notification notification = intent.getParcelableExtra(NOTIFICATION);
+        int id = intent.getIntExtra(NOTIFICATION_ID, 0);
+        notificationManager.notify(id, notification);
 
     }
 }
