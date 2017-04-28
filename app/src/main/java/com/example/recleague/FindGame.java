@@ -120,6 +120,7 @@ public class FindGame extends AppCompatActivity{
         distance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @SuppressLint("SetTextI18n")
             public void onProgressChanged(SeekBar distance, int progress, boolean fromUser) {
+                fardist = (double) progress;
                 if (progress == 0) {
                     distance.setProgress(1);
                     return;
@@ -128,6 +129,8 @@ public class FindGame extends AppCompatActivity{
                 if (progress == 101) {
                     String text = "Any Distance";
                     currentDistance.setText(text);
+                    fardist = -1;
+
                 }
 
                 else if (progress == 1) {
@@ -146,6 +149,8 @@ public class FindGame extends AppCompatActivity{
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
+
+                update();
 
             }
 
