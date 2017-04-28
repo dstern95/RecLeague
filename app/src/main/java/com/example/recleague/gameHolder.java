@@ -13,7 +13,7 @@ import java.util.List;
 
 public class gameHolder extends ArrayList<gameProfile>{
 
-    private final String TAG = "gameHolder";
+    private final String TAG = "gameHolder2";
 
     public gameHolder(){
 
@@ -28,7 +28,7 @@ public class gameHolder extends ArrayList<gameProfile>{
         Date current = c.getTime();
         for(int i=0; i<tmp.size();i++)
         {
-            Log.d(TAG, current.toString() +" found a match "+tmp.get(i).getDateTime().toString());
+            //Log.d(TAG, current.toString() +" found a match "+tmp.get(i).getDateTime().toString());
 
             if (tmp.get(i).getDateTime().after(current)) {
                 this.add(tmp.get(i));

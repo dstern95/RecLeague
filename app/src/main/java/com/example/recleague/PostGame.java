@@ -78,8 +78,8 @@ public class PostGame extends AppCompatActivity {
 
     userProfile curUser;
 
-    Runnable r = new MyRunnable();
-    Thread t;
+    //Runnable r = new MyRunnable();
+    //Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +157,8 @@ public class PostGame extends AppCompatActivity {
                 {
                     games = new gameHolder();
                 }
+                fbase = true;
+
             }
 
             @Override
@@ -206,6 +208,7 @@ public class PostGame extends AppCompatActivity {
     {
         boolean dateTimeSet = false;
         boolean playerLimitSet = false;
+        boolean locationSet = false;
 
         if (timeSet && dateSet) {
             dateTime = new Date(yr-1900, mth, dy, hr, min);
@@ -215,6 +218,7 @@ public class PostGame extends AppCompatActivity {
         EditText loc = (EditText)findViewById(R.id.location_text);
         location = loc.getText().toString();
 
+
         EditText lim = (EditText)findViewById(R.id.lim_text);
         String limitStr = lim.getText().toString();
         Log.d(TAG, "Look here "+ location);
@@ -222,6 +226,10 @@ public class PostGame extends AppCompatActivity {
         if (!limitStr.equals("")) {
             playerLimit = Integer.valueOf(limitStr);
             playerLimitSet = true;
+        }
+        if (!location.equals(""))
+        {
+            locationSet =true;
         }
 
         if (!dateTimeSet && !playerLimitSet) {
@@ -234,6 +242,10 @@ public class PostGame extends AppCompatActivity {
         }
         else if (!playerLimitSet) {
             Toast.makeText(PostGame.this, "Please choose a player limit",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else if (!locationSet) {
+            Toast.makeText(PostGame.this, "Please choose a location",
                     Toast.LENGTH_SHORT).show();
         }
         else {
@@ -266,13 +278,13 @@ public class PostGame extends AppCompatActivity {
 
             tmpholder = tmp.getId();
 
-            t = new Thread(r, "record");
-            t.start();
-
-
-
-
             finish();
+            //t = new Thread(r, "record");
+            //t.start();
+
+
+
+
         }
 
     }
@@ -474,6 +486,7 @@ public class PostGame extends AppCompatActivity {
 
     boolean fbase;
 
+    /*
     class MyRunnable implements Runnable {
 
 
@@ -509,7 +522,9 @@ public class PostGame extends AppCompatActivity {
             });
             boolean posted = false;
 
-            while (!posted)
+            while (!posted) {
+
+            }
             try {
                 Thread.sleep(1000);
             }catch (Exception e)
@@ -518,40 +533,42 @@ public class PostGame extends AppCompatActivity {
             }
 
 
-            while (!fbase)
-            {
 
+
+
+
+
+                if (games.findbyId(tmpholder) != null) {
+                    Log.d(TAG, "Posted");
+                    posted = true;
+                    finish();
+
+                    //Thread.interrupted();
+                } else {
+
+                    Log.d(TAG, "failed");
+                    games.insadd(fingame);
+
+                    FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+                    DatabaseReference myGame = database2.getReference("game");
+
+
+                    myGame.setValue(games);
+                    fbase = false;
+
+
+                }
+                Log.d(TAG, "stuck in loop");
             }
-
-
-
-            if (games.findbyId(tmpholder)!=null)
-            {
-                Log.d(TAG, "Posted");
-                posted = true;
-
-                //Thread.interrupted();
-            }
-            else {
-
-                Log.d(TAG, "failed");
-                games.insadd(fingame);
-
-                FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-                DatabaseReference myGame = database.getReference("game");
-
-
-                myGame.setValue(games);
-
-
-            }
-
+            finish();
 
         }
-                        //Thread.interrupted();
+
+        //Thread.interrupted();
 
     }
 
+    */
 
 
 
