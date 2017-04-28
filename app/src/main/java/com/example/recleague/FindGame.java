@@ -114,9 +114,20 @@ public class FindGame extends AppCompatActivity{
 
         SeekBar distance = (SeekBar) findViewById(R.id.distance);
 
-        /*distance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        distance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar distance, int progress, boolean fromUser) {
 
-        });*/
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                
+            }
+
+        });
 
     }
 
