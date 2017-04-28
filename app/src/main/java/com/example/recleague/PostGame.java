@@ -61,6 +61,10 @@ public class PostGame extends AppCompatActivity {
     public int dy;
     public int mth;
 
+    public String tmpholder;
+
+    gameProfile fingame;
+
     public LatLng coordinates;
 
     public boolean timeSet;
@@ -73,6 +77,9 @@ public class PostGame extends AppCompatActivity {
     String user;
 
     userProfile curUser;
+
+    Runnable r = new MyRunnable();
+    Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,6 +252,7 @@ public class PostGame extends AppCompatActivity {
             //ArrayList<gameProfile> games = new ArrayList<gameProfile>();
             games.insadd(tmp);
 
+            fingame= tmp;
 
             curUser.addGame(tmp.getId());
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -256,9 +264,13 @@ public class PostGame extends AppCompatActivity {
             myRef.setValue(games);
             myRef2.setValue(curUser);
 
+            tmpholder = tmp.getId();
 
-            Toast.makeText(PostGame.this, "Game posted",
-                    Toast.LENGTH_SHORT).show();
+            t = new Thread(r, "record");
+            t.start();
+
+
+
 
             finish();
         }
@@ -459,6 +471,89 @@ public class PostGame extends AppCompatActivity {
         i.putExtra("callingActivity", 0);
         startActivityForResult(i, 2);
     }
+
+    boolean fbase;
+
+    class MyRunnable implements Runnable {
+
+
+        public void run() {
+
+
+            fbase = false;
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("game");
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    GenericTypeIndicator<ArrayList<gameProfile>> t = new GenericTypeIndicator<ArrayList<gameProfile>>() {};
+                    ArrayList<gameProfile> tmp = dataSnapshot.getValue(t);
+                    if (tmp!=null) {
+                        games = new gameHolder(tmp);
+                    }
+                    else
+                    {
+                        games = new gameHolder();
+                    }
+                    fbase = true;
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    //Log.w(TAG, "Failed to read value.", error.toException());
+                }
+            });
+            boolean posted = false;
+
+            while (!posted)
+            try {
+                Thread.sleep(1000);
+            }catch (Exception e)
+            {
+
+            }
+
+
+            while (!fbase)
+            {
+
+            }
+
+
+
+            if (games.findbyId(tmpholder)!=null)
+            {
+                Log.d(TAG, "Posted");
+                posted = true;
+
+                //Thread.interrupted();
+            }
+            else {
+
+                Log.d(TAG, "failed");
+                games.insadd(fingame);
+
+                FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+                DatabaseReference myGame = database.getReference("game");
+
+
+                myGame.setValue(games);
+
+
+            }
+
+
+        }
+                        //Thread.interrupted();
+
+    }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -42,11 +42,11 @@ public class gameHolder extends ArrayList<gameProfile>{
         for (int i=0; i<this.size();i++)
         {
 
-            Log.d(TAG, "found a match  ");
+            //Log.d(TAG, "found a match  ");
 
             if (this.get(i).isId(id))
             {
-                Log.d(TAG, "foud "+this.get(i).getId()+" vs "+id);
+                //Log.d(TAG, "foud "+this.get(i).getId()+" vs "+id);
 
 
                 return this.get(i);
@@ -56,6 +56,7 @@ public class gameHolder extends ArrayList<gameProfile>{
 
         return null;
     }
+
 
     public boolean replace(gameProfile upprof)
     {

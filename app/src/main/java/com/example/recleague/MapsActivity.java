@@ -216,8 +216,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 editor.putString("locname",marker.getTitle());
                 editor.apply();
 
+
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-                mMap.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ) );
+                Log.d(TAG, location.toString());
+
+                mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                //for some reason it is buggy on some phones unless this is done twice
+
 
 
             }

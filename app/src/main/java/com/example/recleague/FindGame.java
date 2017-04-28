@@ -203,73 +203,66 @@ public class FindGame extends AppCompatActivity{
         ArrayList<gameProfile> ml = masterlist;
         String[] gameArray2 = gameArray;
 
+        if (masterlist!=null) {
+            if (!sport.equals("All") || fardist > 0) {
+                Log.d(TAG, "here");
+                ml = new ArrayList<gameProfile>();
+                for (int i = 0; i < masterlist.size(); i++) {
+                    if (masterlist.get(i).getSport().equals(sport) || sport.equals("All")) {
+                        double d;
+                        if (masterlist.get(i).getLatLlng() != null) {
+                            d = distancecalc(masterlist.get(i).getLatLlng(), curLatlng);
+                        } else {
+                            d = 238900;
+                            //im assuming if someone doesnt name a coordinate then the game is being played on the moon
+                        }
+                        if (d <= fardist || fardist == -1) {
+                            Log.d(TAG, masterlist.get(i).getSport());
+                            ml.add(masterlist.get(i));
+                        }
+                    }
+                }
+                gameArray2 = new String[ml.size()];
+                for (int i = 0; i < ml.size(); i++) {
+                    String name = ml.get(i).getLocation();
 
-        if(!sport.equals("All")||fardist>0)
-        {
-            Log.d(TAG, "here");
-            ml = new ArrayList<gameProfile>();
-            for (int i =0; i<masterlist.size();i++)
-            {
-                if (masterlist.get(i).getSport().equals(sport)||sport.equals("All"))
-                {
-                    double d;
-                    if(masterlist.get(i).getLatLlng() != null) {
-                        d = distancecalc(masterlist.get(i).getLatLlng(), curLatlng);
+                    if (ml.get(i).getLatLlng() != null) {
+                        double d = distancecalc(ml.get(i).getLatLlng(), curLatlng);
+                        name += "  " + Double.toString(d) + "Mi away  in ";
+                    } else {
+                        name += "   ";
                     }
-                    else {
-                        d=238900;
-                        //im assuming if someone doesnt name a coordinate then the game is being played on the moon
-                    }
-                    if (d <= fardist||fardist ==-1) {
-                        Log.d(TAG, masterlist.get(i).getSport());
-                        ml.add(masterlist.get(i));
-                    }
+
+
+                    name += "    ";
+                    name += ml.get(i).getDateTime().toString();
+                    gameArray2[i] = name;
                 }
             }
-            gameArray2 = new String[ml.size()];
-            for (int i = 0;i<ml.size();i++)
-            {
-                String name = ml.get(i).getLocation();
+            final ArrayList<gameProfile> ml2 = ml;
+            ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gameArray2);
 
-                if (ml.get(i).getLatLlng() != null) {
-                    double d = distancecalc(ml.get(i).getLatLlng(), curLatlng);
-                    name += "  " + Double.toString(d) + "Mi away  in ";
+            final ListView listView = (ListView) findViewById(R.id.game_view);
+            listView.setAdapter(itemsAdapter);
+            listView.setClickable(load);
+            listView.setEnabled(load);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //String filename = listView.getItemAtPosition(position).toString();
+                    if (load) {
+
+                        Intent i = new Intent(FindGame.this, ViewGame.class);
+                        i.putExtra("GameName", ml2.get(position).getId());
+
+
+                        startActivity(i);
+                    }
+
                 }
-                else
-                {
-                    name += "   ";
-                }
-
-
-                name += "    ";
-                name += ml.get(i).getDateTime().toString();
-                gameArray2[i] = name;
-            }
+            });
         }
-        final ArrayList<gameProfile> ml2 = ml;
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gameArray2);
-
-        final ListView listView = (ListView) findViewById(R.id.game_view);
-        listView.setAdapter(itemsAdapter);
-        listView.setClickable(load);
-        listView.setEnabled(load);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //String filename = listView.getItemAtPosition(position).toString();
-                if (load) {
-
-                    Intent i = new Intent(FindGame.this, ViewGame.class);
-                    i.putExtra("GameName", ml2.get(position).getId());
-
-
-                    startActivity(i);
-                }
-
-            }
-        });
-
     }
 
     public Double distancecalc(LatLng coord, LatLng cur)
